@@ -23,7 +23,7 @@ title: Home
   </div>
   
   <div class="scholarship-item">
-    <span class="s-year">2017 - 2021</span>
+    <span class="s-year">2019 - 2023</span>
     <span class="s-name">
       <strong>National Chiao Tung University (NCTU)</strong><br>
       Bachelor of Science in Mechanical Engineering
