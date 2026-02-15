@@ -2,20 +2,63 @@
 layout: default
 title: Awards
 ---
-# 🏆 Awards
 
-### Competitions
+# 🏆 Awards & Honors
 
-* **26th TDK Cup (2021)**: Competition Award - Excellent Work (Automatic Robotic Group)
-    <img src="tdk2021.jpg" width="400">
-    
-* **24th TDK Cup (2019)**: Competition Award - Selection Award (Remote Control Robotic Group)
-    <img src="tdk2019.jpg" width="400">
+### 🤖 Competitions
 
-### Scholarships
+<div class="award-card">
+  <span class="award-title">26th TDK Cup (2021): Excellent Work Award</span>
+  <div class="award-metadata">
+    <strong>Category:</strong> Automatic Robotic Group <br>
+    <strong>Organization:</strong> TDK Foundation & Ministry of Education
+  </div>
 
-* **2026**: Graduate Research Scholarship (NYCU Graduate Degree Program of Robotics)
-* **2025**: NSTC Graduate Student International Conference Travel Grant
-* **2025**: Graduate Research Scholarship (NYCU Graduate Degree Program of Robotics)
-* **2024**: Graduate Research Scholarship (NYCU Graduate Degree Program of Robotics)
-* **2023**: Master's Program Entrance Scholarship
+  <div class="award-media">
+    <iframe 
+      width="100%" 
+      height="300" 
+      src="https://www.youtube.com/embed/ZmdiB1q2GPI" 
+      frameborder="0" 
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+<div class="award-card">
+  <span class="award-title">24th TDK Cup (2019): Selection Award</span>
+  <div class="award-metadata">
+    <strong>Category:</strong> Remote Control Robotic Group <br>
+    <strong>Organization:</strong> TDK Foundation & Ministry of Education
+  </div>
+
+  <div class="award-media">
+    <img src="assets/pic/tdk_2019.jpeg" alt="TDK 2019">
+  </div>
+</div>
+
+---
+
+### 💰 Scholarships & Grants
+
+<div class="scholarship-list">
+  <div class="scholarship-item">
+    <span class="s-year">2026</span>
+    <span class="s-name">Graduate Research Scholarship <small>(NYCU Robotics)</small></span>
+  </div>
+  
+  <div class="scholarship-item">
+    <span class="s-year">2025</span>
+    <span class="s-name">NSTC Graduate Student International Conference Travel Grant</span>
+  </div>
+
+  <div class="scholarship-item">
+    <span class="s-year">2024 & 2025</span>
+    <span class="s-name">Graduate Research Scholarship <small>(NYCU Robotics)</small></span>
+  </div>
+
+  <div class="scholarship-item">
+    <span class="s-year">2023</span>
+    <span class="s-name">Master's Program Entrance Scholarship</span>
+  </div>
+</div>

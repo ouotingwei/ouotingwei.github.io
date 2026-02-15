@@ -2,192 +2,171 @@
 ---
 @import "{{ site.theme }}";
 
-/* --- 1. 外部容器：確保並排但不撐破主題 --- */
+/* ============================================================
+   1. 基礎設定：確保白色背景與文字對比
+   ============================================================ */
+body {
+  background-color: #ffffff !important;
+  color: #333333 !important; /* 深灰色文字，比純黑更耐看 */
+}
+
+/* ============================================================
+   2. 統一卡片式佈局 (黑灰簡約版)
+   ============================================================ */
+
+.pub-card, .award-card {
+  background: #ffffff; 
+  border: 1px solid #eeeeee;    /* 極淡的邊框 */
+  border-left: 5px solid #000000; /* 強調用的黑色左邊條 */
+  padding: 25px;
+  margin-bottom: 40px;
+  border-radius: 2px;            /* 較小的圓角，更有稜有角 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* 輕微的投影，增加浮動感 */
+}
+
+.pub-title, .award-title {
+  font-size: 1.3em;
+  font-weight: 800;              /* 加粗標題 */
+  color: #000000;                /* 純黑標題 */
+  margin-bottom: 12px;
+  display: block;
+  line-height: 1.4;
+}
+
+.pub-metadata, .award-metadata {
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: #666666;                /* 中灰色中繼資料 */
+  margin-bottom: 18px;
+}
+
+.pub-metadata strong, .award-metadata strong {
+  color: #333333;
+}
+
+/* 名字底線強調 */
+.me {
+  text-decoration: none;
+  border-bottom: 2px solid #000000; /* 使用粗底線代替變色 */
+  font-weight: bold;
+  color: #000000;
+}
+
+/* 統一媒體容器 */
+.pub-figure, .award-media {
+  margin: 20px 0;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #dddddd;
+}
+
+/* ============================================================
+   3. BeerSlider：黑灰風格調整
+   ============================================================ */
+
 .slider-flex-container {
   display: flex !important;
   flex-direction: row !important;
   flex-wrap: nowrap !important;
-  justify-content: center;
-  gap: 15px;
-  margin: 30px 0;
-  width: 100%;
+  gap: 20px;
+  margin: 25px 0;
 }
 
-.slider-item {
-  flex: 1;
-  min-width: 0; /* 允許縮小以並排 */
-  max-width: 48%; /* 兩張並排 */
+.unified-label {
+  text-align: center;
+  font-size: 1em;
+  font-weight: bold;
+  color: #000000;
+  margin: 30px 0 10px 0;
+  text-transform: uppercase;     /* 大寫增加正式感 */
+  letter-spacing: 2px;
 }
 
-/* --- 2. BeerSlider 核心：固定比例與靜止圖片 --- */
 .beer-slider {
-  width: 100% !important;
-  /* 根據你的尺寸 535x427 設定精確比例 */
-  aspect-ratio: 535 / 427 !important; 
-  border-radius: 4px;
-  overflow: hidden;
-  position: relative;
+  aspect-ratio: 535 / 427 !important;
+  border: 1px solid #ddd;
 }
 
-/* 底層圖與上層圖的共同設定 */
-.beer-slider img {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important; /* 確保填滿但不變形 */
-}
-
-/* 關鍵：修正 BeerSlider 的 Reveal 效果，確保圖片不隨滑桿移動 */
-.beer-reveal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 50%; /* JS 會動態修改這個寬度 */
-  overflow: hidden; /* 隱藏超出的部分 */
-  z-index: 2;
-}
-
-/* 強制 Reveal 內部的圖片寬度永遠等於最外層容器的寬度 */
-/* 這樣當容器寬度改變時，圖片看起來就像是「固定在原地」 */
+/* 修正 Reveal 靜止效果 (保持不變) */
 .beer-reveal img {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: auto !important; /* 取消原本的 100% */
+  top: 0; left: 0;
+  width: auto !important;
   height: 100% !important;
-  /* 這行最重要：讓圖片寬度與外層 .beer-slider 一致 */
   min-width: 100%; 
 }
 
-/* --- 3. 手機版適應 --- */
-@media (max-width: 768px) {
-  .slider-flex-container {
-    flex-wrap: wrap !important;
-  }
-  .slider-item {
-    max-width: 100% !important;
-  }
-}
+/* ============================================================
+   4. 簡約黑白按鈕 (Monochrome Buttons)
+   ============================================================ */
 
-/* 縮短標題與 Slider 之間的距離 */
-.slider-item p {
-  margin-top: 0 !important;      /* 移除文字上方間距 */
-  margin-bottom: 5px !important; /* 將下方間距從預設（通常是 15-20px）縮小到 5px */
-  color: #ccc;                   /* 讓標題顏色稍微低調一點，不要搶走圖片焦點 */
-  font-weight: bold;
-}
-
-/* 確保 small 標籤不會有額外的高度問題 */
-.slider-item p small {
-  display: block;
-  line-height: 1.2;
-}
-
-/* 論文卡片樣式 */
-.pub-card {
-  background: rgba(255, 255, 255, 0.05); /* 適合 Hacker 主題的微光感 */
-  border-left: 4px solid #000000;      /* 左側裝飾線 */
-  padding: 20px;
-  margin-bottom: 40px;
-  border-radius: 4px;
-}
-
-.pub-title {
-  font-size: 1.25em;
-  font-weight: bold;
-  color: oklab(12.229% -0.01005 0.01508); /* 亮綠色標題 */
-  margin-bottom: 10px;
-  display: block;
-}
-
-.pub-metadata {
-  font-size: 0.95em;
-  line-height: 1.6;
-  color: #1b1137;
-  margin-bottom: 15px;
-}
-
-.pub-metadata strong {
-  color: #000000;
-}
-
-/* 讓作者清單中的自己加粗 (選用) */
-.me {
-  text-decoration: underline;
-  font-weight: bold;
-}
-
-/* --- 升級版按鈕樣式 (Cyberpunk Style) --- */
-
-/* 按鈕容器 */
 .pub-links {
   display: flex;
   justify-content: center;
-  gap: 15px; /* 按鈕之間的間距 */
+  gap: 12px;
   margin-top: 30px;
-  flex-wrap: wrap;
 }
 
-/* 按鈕基礎樣式 */
 .btn-link {
-  display: inline-flex; /* 讓圖標和文字水平對齊 */
+  display: inline-flex;
   align-items: center;
-  gap: 10px; /* 圖標與文字的距離 */
-  
-  padding: 10px 24px;
-  font-family: 'Courier New', monospace; /* 配合 Hacker 主題的字體 */
+  gap: 8px;
+  padding: 8px 20px;
+  font-size: 0.85em;
   font-weight: bold;
-  font-size: 0.95em;
   text-decoration: none !important;
-  border-radius: 4px; /* 稍微方一點，比較科技感 */
+  border-radius: 0px;             /* 純方角，最簡約 */
   
-  /* 預設狀態：半透明的毛玻璃效果 */
-  background: rgba(57, 58, 57, 0.2); /* 深綠色半透明背景 */
-  border: 1px solid rgba(0, 0, 0, 0.3); /* 淡淡的亮綠色邊框 */
-  color: #ffffff !important; /* 亮綠色文字 */
-  backdrop-filter: blur(5px); /* 背景模糊效果 (毛玻璃) */
+  /* 預設：白底黑框 */
+  background: #ffffff;
+  border: 1px solid #000000;
+  color: #000000 !important;
   
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* 平滑過渡動畫 */
+  transition: all 0.2s ease;
 }
 
-/* 圖標稍微放大一點 */
-.btn-link i {
-  font-size: 1.15em;
-}
-
-/* --- 滑鼠懸停效果 (Hover) --- */
+/* 滑鼠懸停：黑底白字 (全站統一) */
 .btn-link:hover {
-  transform: translateY(-3px); /* 輕微上浮 */
-  color: #111 !important; /* 文字變深色 */
-  border-color: transparent;
+  background: #000000;
+  color: #ffffff !important;
+  transform: none;                /* 移除浮動，保持穩重 */
+  box-shadow: 4px 4px 0px #cccccc; /* 經典的硬陰影效果 */
 }
 
-/* --- 各別品牌的懸停顏色 --- */
+/* ============================================================
+   5. 獎學金清單 (Scholarships)
+   ============================================================ */
 
-/* arXiv 維持 Hacker 綠 */
-.btn-arxiv:hover {
-  background: #8bc34a;
-  box-shadow: 0 0 20px rgba(139, 195, 74, 0.6); /* 綠色霓虹光暈 */
+.scholarship-list {
+  margin-top: 20px;
+  border-top: 2px solid #000;
 }
 
-/* YouTube 變成品牌紅 */
-.btn-youtube:hover {
-  background: #ff0000;
-  color: white !important;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.6); /* 紅色霓虹光暈 */
+.scholarship-item {
+  display: flex;
+  padding: 15px 0;
+  border-bottom: 1px solid #eeeeee;
 }
 
-/* GitHub 變成品牌黑/白 */
-.btn-github:hover {
-  background: #4b4b4b;
-  color: #111 !important;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); /* 白色霓虹光暈 */
+.s-year {
+  width: 100px;
+  font-weight: 800;
+  color: #000;
 }
 
-/* Website 變成品牌藍/青色 */
-.btn-website:hover {
-  background: #00bcd4;
-  color: white !important;
-  box-shadow: 0 0 20px rgba(0, 188, 212, 0.6); /* 青藍色霓虹光暈 */
+.s-name {
+  flex: 1;
+  color: #444;
 }
+
+.highlight-grant {
+  background: #f9f9f9; /* 極淺灰高亮 */
+  font-weight: bold;
+}
+
+/* ============================================================
+   6. 導覽列與側邊欄 (適配白色背景)
+   ============================================================ */
+header a { color: #000 !important; }
+nav ul li a { color: #666 !important; text-decoration: none; }
+nav ul li a:hover { color: #000 !important; border-bottom: 1px solid #000; }
