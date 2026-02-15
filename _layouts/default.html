@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% seo %}
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    
+    <link rel="stylesheet" href="https://unpkg.com/beerslider/dist/BeerSlider.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+      .beer-slider {
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 20px 0;
+      }
+      /* 讓目前所在頁面的選單文字變色，方便辨識 */
+      .nav-link.active {
+        color: #2e7d32; 
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="{{ "/" | relative_url }}">{{ site.title }}</a></h1>
+        {% if site.logo %}
+          <img src="{{ site.logo | relative_url }}" alt="Logo" style="border-radius: 50%; width: 150px; margin-bottom: 20px;" />
+        {% endif %}
+        <p>{{ site.description }}</p>
+
+        <nav>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 8px;">
+                <a href="{{ '/' | relative_url }}" class="nav-link">🏠 Home</a>
+            </li>
+            <li style="margin-bottom: 8px;">
+                <a href="{{ '/publications.html' | relative_url }}" class="nav-link">📄 Publications</a>
+            </li>
+            <li style="margin-bottom: 8px;">
+                <a href="{{ '/awards.html' | relative_url }}" class="nav-link">🏆 Awards</a>
+            </li>
+            <li style="margin-bottom: 8px;">
+                <a href="{{ '/projects.html' | relative_url }}" class="nav-link">🛠️ Projects</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <section>
+        {{ content }}
+      </section>
+
+      <footer>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by orderedlist</small></p>
+      </footer>
+    </div>
+
+    <script src="https://unpkg.com/beerslider/dist/BeerSlider.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // 初始化 BeerSlider
+        const sliders = document.querySelectorAll('.beer-slider');
+        sliders.forEach(function(slider) {
+          new BeerSlider(slider, { start: '50' });
+        });
+
+        // 自動高亮當前頁面的選單連結
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.nav-link').forEach(link => {
+          if (link.getAttribute('href').includes(currentPath) && currentPath !== '/') {
+            link.classList.add('active');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
