@@ -1,6 +1,5 @@
 remote_theme: pages-themes/minimal@v0.2.0
 plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
-title: Ting-Wei,Ou (Wade)
-description: Hi! I'm Wade. I build Robots!
+title: Ting-Wei (Wade),Ou
 logo: assets/pic/logo.png

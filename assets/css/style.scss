@@ -170,3 +170,18 @@ body {
 header a { color: #000 !important; }
 nav ul li a { color: #666 !important; text-decoration: none; }
 nav ul li a:hover { color: #000 !important; border-bottom: 1px solid #000; }
+
+/* 加寬整體容器 */
+.wrapper {
+  width: 90% !important;
+  max-width: 1200px !important;
+}
+
+/* 調整 sidebar 和內容的比例 */
+header {
+  width: 30% !important;
+}
+
+section {
+  width: 70% !important;
+}
