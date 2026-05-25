@@ -3,9 +3,10 @@ layout: default
 title: Home
 ---
 
-I am currently pursuing a Master's Degree in Robotics at **National Yang Ming Chiao Tung University (NYCU)**, advised by **[Prof. Kuu-Young Young](https://robotics.nycu.edu.tw/tw/teachers/show.php?num=14&page=2)** in the **Human and Machine Lab**.
+Hi! I'm Wade, a Master's student in Robotics at **[National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/nycu/en/index)**, where I work under the supervision of **[Prof. Kuu-Young Young](https://robotics.nycu.edu.tw/tw/teachers/show.php?num=14&page=2)** in the Human and Machine Lab. I received my B.S. in Mechanical Engineering from NYCU.
 
-My research interests lie at the intersection of **Computer Vision** and **Robotics**, with a focus on enhancing data association and system robustness in challenging environments.
+
+My research sits at the intersection of **Computer Vision** and **Robotics**, with a particular focus on improving system robustness in challenging real-world environments. Beyond academia, I have a strong passion for building intelligent robotic systems and tackling industrial problems, drawing from my experience as Team Leader of the **[NYCU iTron Robotics Team](https://itrongoto.us/)** and as an Automatic System Development Engineer at **[Hong Lang Technology Co., Ltd](https://www.honglang-tw.com/?lang=en)**.
 
 <div class="unified-label" style="text-align: left; margin-left: 10px;">Education</div>
 <div class="scholarship-list">
@@ -223,7 +224,7 @@ My research interests lie at the intersection of **Computer Vision** and **Robot
     </strong><br>
 
   <span style="font-size: 0.9em; color: #555; margin-top: 8px; display: block; line-height: 1.6;">
-    I mentored an undergraduate students (2025) on a project to improve the robustness of Visual SLAM in dynamic scenes. We integrated YOLOv8 semantic segmentation into ORB-SLAM2 to detect and remove feature points on moving objects, particularly humans, thereby reducing their adverse impact on front-end camera pose estimation. The system was validated on an open dataset recorded in a shopping mall environment, and the results demonstrated improved stability under dynamic conditions.
+    I mentored an undergraduate students (2025) on a project to improve the robustness of Visual SLAM in dynamic scenes. We integrated YOLOv8 semantic segmentation into ORB-SLAM2 to detect and remove feature points on moving objects, particularly humans, thereby reducing their adverse impact on front-end camera pose estimation.
   </span>
 
   <!-- 超連結按鈕 -->
@@ -364,15 +365,7 @@ My research interests lie at the intersection of **Computer Vision** and **Robot
     <span class="s-year">2021</span>
     <span class="s-name">
       <strong>NYCU</strong><br>
-      26th TDK Robocon: Excellent Work Award (Autonomous Robotics)<br>
-    </span>
-  </div>
-
-  <div class="scholarship-item highlight-grant">
-    <span class="s-year">2019</span>
-    <span class="s-name">
-      <strong>NYCU</strong><br>
-      26th TDK Robocon: Excellent Work Award (Remote Control Robotics)<br>
+      26th TDK Robocon: Honorable Mention (Autonomous Robotics)<br>
     </span>
   </div>
 </div>
