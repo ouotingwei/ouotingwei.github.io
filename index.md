@@ -175,12 +175,14 @@ My research sits at the intersection of **Computer Vision** and **Robotics**, wi
     </strong><br>
 
   <span style="font-size: 0.9em; color: #555; margin-top: 8px; display: block; line-height: 1.6;">
-    An extended multi-camera version of ORB-SLAM3. This setup enhance robustness in challenging scenarios such as camera occlusion and severe illumination changes.
+    Implementation of MAVIS-SLAM with ROS integration, enhancing robustness in challenging scenarios such as camera occlusion and severe illumination changes.
   </span>
 
   <!-- 超連結按鈕 -->
   <span style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
+    <a href="https://github.com/ouotingwei/mavis_ros.git" target="_blank" class="btn-link">💻 GitHub</a>
     <a href="https://www.youtube.com/watch?v=Ie2tCVeXMDU" target="_blank" class="btn-link">🎬 YouTube</a>
+    
   </span>
   </span>
   </div>
@@ -248,7 +250,7 @@ My research sits at the intersection of **Computer Vision** and **Robotics**, wi
     </strong><br>
 
   <span style="font-size: 0.9em; color: #555; margin-top: 8px; display: block; line-height: 1.6;">
-    This project was developed during my time as a System Development Engineer at Hong Lang Technology Co., Ltd. (2023-2024). The goal was to build an automated plasma-spraying system to replace the traditional manual process. The work involved 3D vision reconstruction, robotic arm path planning, and user I/O interface design. The system has already been delivered to the manufacturing partner for deployment.
+    This project was developed during my time as a System Development Engineer at Hong Lang Technology Co., Ltd. The goal was to build an automated plasma-spraying system. The work involved surface reconstruction, robotic arm path planning, and user I/O interface and visualization.
   </span>
 
   <!-- 超連結按鈕 -->
