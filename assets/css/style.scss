@@ -187,3 +187,100 @@ body section {
   width: 66% !important;
   float: right !important;
 }
+
+.sidebar-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-links li {
+  margin-bottom: 8px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-link > i {
+  width: 20px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.nav-link.active {
+  color: #2e7d32;
+  text-decoration: underline;
+}
+
+/* Research Tools 區塊 */
+.sidebar-section {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.sidebar-section-title {
+  margin-bottom: 10px;
+  color: #777;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tool-link {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 12px;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  color: #333;
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.tool-link:hover {
+  border-color: #2e7d32;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.tool-link > .fa-newspaper {
+  flex: 0 0 auto;
+  color: #2e7d32;
+  font-size: 21px;
+}
+
+.tool-text {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.tool-text strong {
+  color: #333;
+  font-size: 14px;
+}
+
+.tool-text small {
+  margin-top: 3px;
+  color: #777;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.external-icon {
+  flex: 0 0 auto;
+  color: #aaa;
+  font-size: 10px;
+}
