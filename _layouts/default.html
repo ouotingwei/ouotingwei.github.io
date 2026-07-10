@@ -151,8 +151,9 @@
           const map = L.map('travel-map', {
             zoomControl: false,
             scrollWheelZoom: false,
-            attributionControl: true
-          }).setView([30, 60], 1);
+            attributionControl: true,
+            zoomSnap: 0.1
+          }).setView([30, 0], 0.7);
 
           L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; OpenStreetMap &copy; CARTO',
@@ -173,10 +174,10 @@
 
           places.forEach(function(p) {
             const marker = L.circleMarker([p.lat, p.lng], {
-              radius: 3.5,
+              radius: 1.5,
               color: '#2e7d32',
               fillColor: '#2e7d32',
-              fillOpacity: 0.85,
+              fillOpacity: 1.5,
               weight: 1
             }).addTo(map);
 
