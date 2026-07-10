@@ -52,7 +52,7 @@ My research sits at the intersection of **Computer Vision** and **Robotics**, wi
     </strong><br>
 
   <span style="font-size: 0.9em; color: #555; margin-top: 4px; display: block;">
-    <span class="me">Ting-Wei Ou</span>, H.T. Lin, J.Y. Long, and Kuu-Young Young
+    <span class="me">Ting-Wei Ou</span>, H.T. Lin, and Kuu-Young Young
   </span>
 
   <span style="font-size: 0.88em; color: #888; margin-top: 4px; display: block; font-style: italic;">
