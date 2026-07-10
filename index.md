@@ -48,7 +48,7 @@ My research sits at the intersection of **Computer Vision** and **Robotics**, wi
   <!-- 右邊資訊 -->
   <span class="s-name" style="flex: 1;">
     <strong style="font-size: 1em; color: #000;">
-      Desc++: Efficient Context-Aware Feature Descriptor Enhancement for Data Association in Visual SLAM
+      Desc++: Efficient Descriptor Enhancement for Data Association in Existing Visual SLAM Systems
     </strong><br>
 
   <span style="font-size: 0.9em; color: #555; margin-top: 4px; display: block;">
@@ -61,9 +61,9 @@ My research sits at the intersection of **Computer Vision** and **Robotics**, wi
 
   <!-- 超連結按鈕 -->
   <span style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
-    <a href="https://arxiv.org/abs/xxxx" target="_blank" class="btn-link">📄 arXiv</a>
-    <a href="https://github.com/yourrepo" target="_blank" class="btn-link">💻 GitHub</a>
-    <a href="https://yourdemo.com" target="_blank" class="btn-link">🌐 Demo</a>
+    <a href="https://drive.google.com/file/d/1jwdqXDVgUcMOPNFVZGSsLi7Iu1lMZ9Ka/view?usp=drive_link" target="_blank" class="btn-link">📄 arXiv</a>
+    <a href="https://github.com/ouotingwei/DescPP.git" target="_blank" class="btn-link">💻 GitHub</a>
+    <a href="https://anonymous0187.github.io" target="_blank" class="btn-link">🌐 Demo</a>
     <a href="https://youtube.com/xxx" target="_blank" class="btn-link">🎬 Video</a>
   </span>
   </span>
