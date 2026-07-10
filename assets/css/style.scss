@@ -232,6 +232,7 @@ body section {
   text-transform: uppercase;
 }
 
+// tools
 .tool-link {
   display: flex;
   align-items: center;
@@ -283,4 +284,44 @@ body section {
   flex: 0 0 auto;
   color: #aaa;
   font-size: 10px;
+}
+
+// news
+.news-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+.news-list li {
+  font-size: 0.8em;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  color: #555;
+}
+.news-date {
+  display: block;
+  font-weight: bold;
+  color: #2e7d32;
+  font-size: 0.9em;
+}
+
+// travel map
+#travel-map {
+  width: 100%;
+  height: 270px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  margin-top: 8px;
+  z-index: 0; /* 避免蓋住其他元素 */
+}
+.map-tooltip img {
+  width: 270px;
+  border-radius: 4px;
+  display: block;
+  margin-bottom: 4px;
+}
+.map-tooltip .map-caption {
+  font-size: 0.8em;
+  color: #333;
+  text-align: center;
 }

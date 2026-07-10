@@ -1,0 +1,36 @@
+# 建議另存一張小縮圖，200px * 200px
+- name: "IEEE SMC 2025"
+  city: "Vienna, Austria"
+  lat: 48.2082
+  lng: 16.3738
+  photo: "/assets/pic/travel/smc26.png"   
+
+- name: "NYCU (Lab)"
+  city: "Hsinchu, Taiwan"
+  lat: 24.7869
+  lng: 120.9967
+  photo: "/assets/pic/travel/lab.jpg"
+
+- name: "Travel"
+  city: "Tokyo, Japan"
+  lat: 35.7154
+  lng: 139.7939
+  photo: "/assets/pic/travel/tokyo.jpg"
+
+- name: "Travel"
+  city: "Shanghai, China"
+  lat: 31.1400
+  lng: 121.2812
+  photo: "/assets/pic/travel/shanghai.jpg"
+
+- name: "Travel"
+  city: "Salzburg, Austria"
+  lat: 47.4800
+  lng: 13.0242
+  photo: "/assets/pic/travel/salzburg.jpg"
+
+- name: "Travel"
+  city: "Okinawa, Japan"
+  lat: 26.1244
+  lng: 127.4045
+  photo: "/assets/pic/travel/okinawa.jpg"

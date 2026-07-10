@@ -10,6 +10,9 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <style>
       .beer-slider {
         border-radius: 8px;
@@ -74,6 +77,22 @@
           </ul>
 
           <div class="sidebar-section">
+            <div class="sidebar-section-title">📰 News</div>
+            <ul class="news-list">
+              {% for item in site.data.news limit:5 %}
+                <li>
+                  <span class="news-date">{{ item.date }}</span>
+                  {% if item.link %}
+                    <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">{{ item.text }}</a>
+                  {% else %}
+                    {{ item.text }}
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
             <div class="sidebar-section-title">Research Tools</div>
 
             <a href="https://ouotingwei.github.io/daily-arXiv-ai-enhanced/"
@@ -91,6 +110,12 @@
               <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
             </a>
           </div>
+
+          <div class="sidebar-section">
+            <div class="sidebar-section-title">🌍 Travel</div>
+            <div id="travel-map"></div>
+          </div>
+
         </nav>
       </header>
 
@@ -119,6 +144,55 @@
             link.classList.add('active');
           }
         });
+
+        // ===== Travel Map（從這裡開始是新加的）=====
+        const mapEl = document.getElementById('travel-map');
+        if (mapEl) {
+          const map = L.map('travel-map', {
+            zoomControl: false,
+            scrollWheelZoom: false,
+            attributionControl: true
+          }).setView([30, 60], 1);
+
+          L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap &copy; CARTO',
+            maxZoom: 10
+          }).addTo(map);
+
+          const places = [
+            {% for p in site.data.travel_map %}
+            {
+              name: {{ p.name | jsonify }},
+              city: {{ p.city | jsonify }},
+              lat: {{ p.lat }},
+              lng: {{ p.lng }},
+              photo: {{ p.photo | relative_url | jsonify }}
+            }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+          ];
+
+          places.forEach(function(p) {
+            const marker = L.circleMarker([p.lat, p.lng], {
+              radius: 3.5,
+              color: '#2e7d32',
+              fillColor: '#2e7d32',
+              fillOpacity: 0.85,
+              weight: 1
+            }).addTo(map);
+
+            marker.bindTooltip(
+              '<div class="map-tooltip">' +
+                '<img src="' + p.photo + '" alt="' + p.name + '">' +
+                '<div class="map-caption"><strong>' + p.name + '</strong><br>' + p.city + '</div>' +
+              '</div>',
+              { direction: 'top', opacity: 1 }
+            );
+
+            marker.on('click', function() {
+              window.location.href = '{{ "/travel/" | relative_url }}';
+            });
+          });
+        }
       });
     </script>
   </body>
