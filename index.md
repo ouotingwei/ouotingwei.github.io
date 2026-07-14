@@ -61,7 +61,7 @@ My research sits at the intersection of **Computer Vision** and **Robotics**, wi
 
   <!-- 超連結按鈕 -->
   <span style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
-    <a href="https://drive.google.com/file/d/1jwdqXDVgUcMOPNFVZGSsLi7Iu1lMZ9Ka/view?usp=drive_link" target="_blank" class="btn-link">📄 arXiv</a>
+    <a href="https://arxiv.org/abs/2607.11099" target="_blank" class="btn-link">📄 arXiv</a>
     <a href="https://github.com/ouotingwei/DescPP.git" target="_blank" class="btn-link">💻 GitHub</a>
     <a href="https://anonymous0187.github.io" target="_blank" class="btn-link">🌐 Demo</a>
   </span>
