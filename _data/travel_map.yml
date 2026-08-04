@@ -34,3 +34,9 @@
   lat: 26.1244
   lng: 127.4045
   photo: "/assets/pic/travel/okinawa.jpg"
+
+- name: "Travel"
+  city: "Changzhou, China"
+  lat: 31.765179
+  lng: 119.340979
+  photo: "/assets/pic/travel/changzhou.jpeg"
