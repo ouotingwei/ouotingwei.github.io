@@ -287,9 +287,20 @@ My research sits at the intersection of **Computer Vision** and **Robotics**, wi
 
 </div>
 
+<!-- Industry Experience & Services -->
 <div class="unified-label" style="text-align: left; margin-left: 10px;">Industry Experience & Services</div>
 <div class="scholarship-list">
+
   <div class="scholarship-item highlight-grant">
+    <span class="s-year">2026 - Pres.</span>
+    <span class="s-name">
+      <strong>Industrial Technology Research Institution - Autonomous Driving Department</strong><br>
+      Intern<br>
+      <span style="font-weight: normal;">???.</span>
+    </span>
+  </div>
+
+  <div class="scholarship-item">
     <span class="s-year">2023 – 2024</span>
     <span class="s-name">
       <strong>Hong Lang Technology Co., Ltd.</strong><br>
@@ -308,6 +319,7 @@ My research sits at the intersection of **Computer Vision** and **Robotics**, wi
   </div>
 </div>
 
+<!-- Teaching Experience -->
 <div class="unified-label" style="text-align: left; margin-left: 10px;">Teaching Experience</div>
 <div class="scholarship-list">
   <div class="scholarship-item highlight-grant">
