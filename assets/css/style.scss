@@ -102,6 +102,7 @@ body {
 
 .pub-links {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
   margin-top: 30px;
@@ -171,21 +172,24 @@ header a { color: #000 !important; }
 nav ul li a { color: #666 !important; text-decoration: none; }
 nav ul li a:hover { color: #000 !important; border-bottom: 1px solid #000; }
 
-/* 加寬整體容器 */
-body .wrapper {
-  width: 90% !important;
-  max-width: 1200px !important;
-}
+/* 桌機（> 960px）才使用左右兩欄；
+   原本這幾行沒有包在 media query 裡，又加了 !important，
+   把 minimal 主題內建的手機版規則全部蓋掉，手機才會跑版 */
+@media screen and (min-width: 961px) {
+  body .wrapper {
+    width: 90% !important;
+    max-width: 1200px !important;
+  }
 
-/* 調整 sidebar 和內容的比例 */
-body header {
-  width: 30% !important;
-  position: relative !important;
-}
+  body header {
+    width: 30% !important;
+    position: relative !important;
+  }
 
-body section {
-  width: 66% !important;
-  float: right !important;
+  body section {
+    width: 66% !important;
+    float: right !important;
+  }
 }
 
 .sidebar-links {
@@ -316,6 +320,7 @@ body section {
 }
 .map-tooltip img {
   width: 270px;
+  max-width: 60vw;
   border-radius: 4px;
   display: block;
   margin-bottom: 4px;
@@ -324,4 +329,92 @@ body section {
   font-size: 0.8em;
   color: #333;
   text-align: center;
+}
+
+/* ============================================================
+   7. 側邊欄 Logo
+   ============================================================ */
+.site-logo {
+  display: block;
+  width: 300px;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* ============================================================
+   8. 平板 / 手機（RWD）
+   ============================================================ */
+
+/* ≤ 960px：改成上下單欄 */
+@media screen and (max-width: 960px) {
+  body .wrapper {
+    width: auto;
+    margin: 0;
+  }
+
+  /* 主題預設在這個寬度會替 header 留 320px 右邊空間，
+     並把 header 裡「所有」ul 設成 absolute 定位，
+     會讓連結清單與 News 疊在一起，這裡還原 */
+  body header {
+    padding-right: 0;
+  }
+
+  body header ul {
+    position: static;
+  }
+
+  .site-logo {
+    width: 180px;
+  }
+
+  #travel-map {
+    height: 220px;
+  }
+}
+
+/* ≤ 720px：清單項目改成上下排列 */
+@media screen and (max-width: 720px) {
+  .scholarship-item {
+    flex-direction: column;
+    align-items: stretch !important;   /* 覆蓋 index.md 的 inline style */
+    gap: 10px !important;
+  }
+
+  .s-year {
+    width: auto;
+  }
+
+  /* 論文 / 專案縮圖（inline 寫死 width: 280px） */
+  .scholarship-item > div:first-child {
+    width: 100% !important;
+  }
+
+  /* 學歷區的 NYCU logo（inline 寫死 width: 300px） */
+  .scholarship-item > img {
+    width: 100% !important;
+    max-width: 240px;
+    height: auto !important;
+    max-height: 80px;
+    margin-left: 0 !important;
+  }
+
+  .slider-flex-container {
+    flex-direction: column !important;
+  }
+
+  .pub-card, .award-card {
+    padding: 16px;
+  }
+
+  /* 防止長網址或長單字撐破畫面 */
+  body section {
+    overflow-wrap: anywhere;
+  }
+
+  body section img,
+  body section video,
+  body section iframe {
+    max-width: 100%;
+  }
 }

@@ -3,10 +3,10 @@ layout: default
 title: Home
 ---
 
-Hi! I'm Wade, a Master's student in Robotics at **[National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/nycu/en/index)**, where I work under the supervision of **[Prof. Kuu-Young Young](https://robotics.nycu.edu.tw/tw/teachers/show.php?num=14&page=2)** in the Human and Machine Lab. I received my B.S. in Mechanical Engineering from NYCU.
+Hi! I'm Wade, a Master's student in Robotics at **[National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/nycu/en/index)**, where I work under the supervision of **[Prof. Kuu-Young Young](https://robotics.nycu.edu.tw/tw/teachers/show.php?num=14&page=2)** in the Human and Machine Lab. I received my B.S. in Mechanical Engineering from NYCU in 2023.
 
 
-My research sits at the intersection of **Computer Vision** and **Robotics**, with a particular focus on improving system robustness in challenging real-world environments. Beyond academia, I have a strong passion for building intelligent robotic systems and tackling industrial problems, drawing from my experience as Team Leader of the **[NYCU iTron Robotics Team](https://itrongoto.us/)** and as an Automatic System Development Engineer at **[Hong Lang Technology Co., Ltd](https://www.honglang-tw.com/?lang=en)**.
+My research sits at the intersection of **Efficient Robot Perception**, including **Localization and Mapping**, with a particular focus on improving system robustness in challenging environments. Beyond academia, I have a strong passion for building intelligent robotic systems and tackling industrial problems, drawing from my experience as a Research Intern at the **[Industrial Technology Research Institute (ITRI)](https://www.itri.org.tw/english/index.aspx)** Autonomous Driving & Mapping Team, Team Leader of the **[NYCU iTron Robotics Team](https://itrongoto.us/)**, and as an Automatic System Development Engineer at **[Hong Lang Technology Co., Ltd](https://www.honglang-tw.com/?lang=en)**.
 
 <div class="unified-label" style="text-align: left; margin-left: 10px;">Education</div>
 <div class="scholarship-list">
@@ -294,9 +294,9 @@ My research sits at the intersection of **Computer Vision** and **Robotics**, wi
   <div class="scholarship-item highlight-grant">
     <span class="s-year">2026 - Pres.</span>
     <span class="s-name">
-      <strong>Industrial Technology Research Institution - Autonomous Driving Department</strong><br>
+      <strong>Industrial Technology Research Institution (ITRI) - MMSL</strong><br>
       Intern<br>
-      <span style="font-weight: normal;">???.</span>
+      <span style="font-weight: normal;"> Integrating learning-based point cloud registration into a production HD mapping pipeline to improve robustness over classical scan matching in challenging environments.</span>
     </span>
   </div>
 
