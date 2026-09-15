@@ -3,10 +3,10 @@ layout: default
 title: Home
 ---
 
-Hi! I'm Wade, a Master's student in Robotics at **[National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/nycu/en/index)**, where I work under the supervision of **[Prof. Kuu-Young Young](https://robotics.nycu.edu.tw/tw/teachers/show.php?num=14&page=2)** in the Human and Machine Lab. I received my B.S. in Mechanical Engineering from NYCU in 2023.
+Hi! I'm Wade, a Master's student in Robotics at **[National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/nycu/en/index)**, where I work under the supervision of **[Prof. Kuu-Young Young](https://robotics.nycu.edu.tw/tw/teachers/show.php?num=14&page=2)** in the Human and Machine Lab. I received my B.S. in Mechanical Engineering from NYCU.
 
 
-My research sits at the intersection of **Efficient Robot Perception**, including **Localization and Mapping**, with a particular focus on improving system robustness in challenging environments. Beyond academia, I have a strong passion for building intelligent robotic systems and tackling industrial problems, drawing from my experience as a Research Intern at the **[Industrial Technology Research Institute (ITRI)](https://www.itri.org.tw/english/index.aspx)** Autonomous Driving & Mapping Team, Team Leader of the **[NYCU iTron Robotics Team](https://itrongoto.us/)**, and as an Automatic System Development Engineer at **[Hong Lang Technology Co., Ltd](https://www.honglang-tw.com/?lang=en)**.
+My research sits at the intersection of **Computer Vision** and **Robotics**, with a particular focus on improving system robustness in challenging real-world environments. Beyond academia, I have a strong passion for building intelligent robotic systems and tackling industrial problems, drawing from my experience as Team Leader of the **[NYCU iTron Robotics Team](https://itrongoto.us/)** and as an Automatic System Development Engineer at **[Hong Lang Technology Co., Ltd](https://www.honglang-tw.com/?lang=en)**.
 
 <div class="unified-label" style="text-align: left; margin-left: 10px;">Education</div>
 <div class="scholarship-list">
@@ -18,7 +18,7 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
       <span style="font-size: 0.85em; color: #888;">formerly National Chiao Tung University (NCTU)</span><br>
       Graduate Degree Program of Robotics
     </span>
-    <img src="assets/pic/nycu.png" alt="NYCU"
+    <img src="assets/pic/nycu.png" loading="lazy" alt="NYCU"
          style="width: 300px; height: 100px; object-fit: contain; margin-left: auto;">
   </div>
 
@@ -29,7 +29,7 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
       <span style="font-size: 0.85em; color: #888;">formerly National Chiao Tung University (NCTU)</span><br>
       Bachelor of Science in Mechanical Engineering
     </span>
-    <img src="assets/pic/nycu.png" alt="NCTU"
+    <img src="assets/pic/nycu.png" loading="lazy" alt="NCTU"
          style="width: 300px; height: 100px; object-fit: contain; margin-left: auto;">
   </div>
 
@@ -41,8 +41,8 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
   <div class="scholarship-item" style="align-items: flex-start; gap: 20px;">
     <!-- 左邊縮圖 -->
     <div style="width: 280px; flex-shrink: 0;">
-      <img src="assets/pic/descpp.gif" alt="paper thumbnail"
-           style="width: 100%; border-radius: 4px; border: 1px solid #ddd;">
+      <video src="assets/video/descpp.mp4" autoplay muted loop playsinline preload="metadata"
+           aria-label="paper thumbnail" style="width: 100%; border-radius: 4px; border: 1px solid #ddd; display: block;"></video>
     </div>
 
   <!-- 右邊資訊 -->
@@ -72,8 +72,8 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
   <div class="scholarship-item" style="align-items: flex-start; gap: 20px;">
     <!-- 左邊縮圖 -->
     <div style="width: 280px; flex-shrink: 0;">
-      <img src="assets/pic/hotspot.gif" alt="paper thumbnail"
-           style="width: 100%; border-radius: 4px; border: 1px solid #ddd;">
+      <video src="assets/video/hotspot.mp4" autoplay muted loop playsinline preload="metadata"
+           aria-label="paper thumbnail" style="width: 100%; border-radius: 4px; border: 1px solid #ddd; display: block;"></video>
     </div>
 
   <!-- 右邊資訊 -->
@@ -102,7 +102,7 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
   <div class="scholarship-item" style="align-items: flex-start; gap: 20px;">
     <!-- 左邊縮圖 -->
     <div style="width: 280px; flex-shrink: 0;">
-      <img src="assets/pic/ai_assistant.png" alt="paper thumbnail"
+      <img src="assets/pic/ai_assistant.jpg" loading="lazy" alt="paper thumbnail"
            style="width: 100%; border-radius: 4px; border: 1px solid #ddd;">
     </div>
 
@@ -137,8 +137,8 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
   <div class="scholarship-item" style="align-items: flex-start; gap: 20px;">
     <!-- 左邊縮圖 -->
     <div style="width: 280px; flex-shrink: 0;">
-      <img src="assets/pic/orb_fb.gif" alt="project thumbnail"
-           style="width: 100%; border-radius: 4px; border: 1px solid #ddd;">
+      <video src="assets/video/orb_fb.mp4" autoplay muted loop playsinline preload="metadata"
+           aria-label="project thumbnail" style="width: 100%; border-radius: 4px; border: 1px solid #ddd; display: block;"></video>
     </div>
 
   <!-- 右邊資訊 -->
@@ -163,8 +163,8 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
   <div class="scholarship-item" style="align-items: flex-start; gap: 20px;">
   <!-- 左邊縮圖 -->
   <div style="width: 280px; flex-shrink: 0;">
-    <img src="assets/pic/mavis.gif" alt="project thumbnail"
-          style="width: 100%; border-radius: 4px; border: 1px solid #ddd;">
+    <video src="assets/video/mavis.mp4" autoplay muted loop playsinline preload="metadata"
+          aria-label="project thumbnail" style="width: 100%; border-radius: 4px; border: 1px solid #ddd; display: block;"></video>
   </div>
 
   <!-- 右邊資訊 -->
@@ -190,8 +190,8 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
   <div class="scholarship-item" style="align-items: flex-start; gap: 20px;">
   <!-- 左邊縮圖 -->
   <div style="width: 280px; flex-shrink: 0;">
-    <img src="assets/pic/ppo.gif" alt="project thumbnail"
-          style="width: 100%; border-radius: 4px; border: 1px solid #ddd;">
+    <video src="assets/video/ppo.mp4" autoplay muted loop playsinline preload="metadata"
+          aria-label="project thumbnail" style="width: 100%; border-radius: 4px; border: 1px solid #ddd; display: block;"></video>
   </div>
 
   <!-- 右邊資訊 -->
@@ -214,8 +214,8 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
   <div class="scholarship-item" style="align-items: flex-start; gap: 20px;">
   <!-- 左邊縮圖 -->
   <div style="width: 280px; flex-shrink: 0;">
-    <img src="assets/pic/undergraduate_rpoject.gif" alt="project thumbnail"
-          style="width: 100%; border-radius: 4px; border: 1px solid #ddd;">
+    <video src="assets/video/undergraduate_rpoject.mp4" autoplay muted loop playsinline preload="metadata"
+          aria-label="project thumbnail" style="width: 100%; border-radius: 4px; border: 1px solid #ddd; display: block;"></video>
   </div>
 
   <!-- 右邊資訊 -->
@@ -238,8 +238,8 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
   <div class="scholarship-item" style="align-items: flex-start; gap: 20px;">
     <!-- 左邊縮圖 -->
     <div style="width: 280px; flex-shrink: 0;">
-      <img src="assets/pic/hl.gif" alt="project thumbnail"
-           style="width: 100%; border-radius: 4px; border: 1px solid #ddd;">
+      <video src="assets/video/hl.mp4" autoplay muted loop playsinline preload="metadata"
+           aria-label="project thumbnail" style="width: 100%; border-radius: 4px; border: 1px solid #ddd; display: block;"></video>
     </div>
 
   <!-- 右邊資訊 -->
@@ -263,8 +263,8 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
   <div class="scholarship-item" style="align-items: flex-start; gap: 20px;">
     <!-- 左邊縮圖 -->
     <div style="width: 280px; flex-shrink: 0;">
-      <img src="assets/pic/itron.gif" alt="project thumbnail"
-           style="width: 100%; border-radius: 4px; border: 1px solid #ddd;">
+      <video src="assets/video/itron.mp4" autoplay muted loop playsinline preload="metadata"
+           aria-label="project thumbnail" style="width: 100%; border-radius: 4px; border: 1px solid #ddd; display: block;"></video>
     </div>
 
   <!-- 右邊資訊 -->
@@ -294,9 +294,9 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
   <div class="scholarship-item highlight-grant">
     <span class="s-year">2026 - Pres.</span>
     <span class="s-name">
-      <strong>Industrial Technology Research Institution (ITRI) - MMSL</strong><br>
+      <strong>Industrial Technology Research Institution - Autonomous Driving Department</strong><br>
       Intern<br>
-      <span style="font-weight: normal;"> Integrating learning-based point cloud registration into a production HD mapping pipeline to improve robustness over classical scan matching in challenging environments.</span>
+      <span style="font-weight: normal;">???.</span>
     </span>
   </div>
 
