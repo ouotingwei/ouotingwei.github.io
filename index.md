@@ -296,7 +296,7 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
     <span class="s-name">
       <strong>Industrial Technology Research Institution (ITRI) - MMSL</strong><br>
       Intern<br>
-      <span style="font-weight: normal;">???.</span>
+      <span style="font-weight: normal;">Integrating learning-based point cloud registration into a production HD mapping pipeline to improve robustness over classical scan matching in challenging environments.</span>
     </span>
   </div>
 
@@ -305,7 +305,7 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
     <span class="s-name">
       <strong>Hong Lang Technology Co., Ltd.</strong><br>
       Automatic System Development Engineer<br>
-      <span style="font-weight: normal;">Integrating learning-based point cloud registration into a production HD mapping pipeline to improve robustness over classical scan matching in challenging environments.</span>
+      <span style="font-weight: normal;">Developed automated machinery systems to modernize traditional footwear manufacturing processes for industrial-scale production.</span>
     </span>
   </div>
 
