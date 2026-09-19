@@ -206,5 +206,8 @@
         }
       });
     </script>
+    {% if site.twin.api_url and site.twin.api_url != "" %}
+      {% include twin-chat.html %}
+    {% endif %}
   </body>
 </html>

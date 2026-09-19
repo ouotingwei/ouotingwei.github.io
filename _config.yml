@@ -4,3 +4,14 @@ plugins:
 - jekyll-seo-tag
 title: Ting-Wei (Wade),Ou
 logo: assets/pic/logo.jpg
+
+# Digital twin 聊天（api_url 留空時不會顯示聊天按鈕）
+twin:
+  api_url: "https://wades-mac-mini.tail0d4913.ts.net"            # 例如 https://twin.你的網域.com
+  turnstile_sitekey: ""  # Cloudflare Turnstile 的 site key
+  name: "Wade"
+  greeting: "Ask me anything — I'm Wade's AI twin, and I'll answer from his notes as best I can. 中文也可以。"
+  suggestions:
+    - "What is your research about?"
+    - "Tell me about your life in Taiwan"
+    - "What have you been doing recently?"

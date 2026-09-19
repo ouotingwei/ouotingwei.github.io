@@ -1,0 +1,363 @@
+{% assign twin = site.twin %}
+{% if twin.name %}{% capture twin_title %}{{ twin.name }}'s digital twin{% endcapture %}{% else %}{% assign twin_title = "Digital twin" %}{% endif %}
+<style>
+  .twin-launcher {
+    position: fixed; right: 20px; bottom: 20px; z-index: 2000;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 16px; font: inherit; font-size: 14px; font-weight: bold;
+    background: #000; color: #fff; border: 1px solid #000;
+    box-shadow: 4px 4px 0 #ccc; cursor: pointer;
+  }
+  .twin-launcher:hover { background: #fff; color: #000; }
+  .twin-launcher[hidden], .twin-panel[hidden], .twin-suggest[hidden] { display: none; }
+  .twin button:focus-visible, .twin textarea:focus-visible { outline: 2px solid #2e7d32; outline-offset: 2px; }
+  .twin-panel {
+    position: fixed; right: 20px; bottom: 20px; z-index: 2001;
+    width: 380px; max-width: calc(100vw - 40px);
+    height: 560px; max-height: calc(100vh - 40px);
+    display: flex; flex-direction: column;
+    background: #fff; color: #333; font-size: 14px;
+    border: 1px solid #000; box-shadow: 6px 6px 0 #ccc;
+  }
+  .twin-head {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+    padding: 12px 14px; border-bottom: 1px solid #000;
+  }
+  .twin-head b { display: block; color: #000; font-size: 15px; }
+  .twin-sub { display: block; margin-top: 2px; color: #777; font-size: 12px; line-height: 1.4; }
+  .twin-close {
+    flex: 0 0 auto; width: 32px; height: 32px; margin: -4px -6px 0 0; padding: 0;
+    background: none; border: 0; color: #000; font-family: Arial, sans-serif; font-size: 28px; line-height: 1; cursor: pointer;
+  }
+  .twin-log {
+    flex: 1; overflow-y: auto; padding: 14px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .twin-msg { max-width: 88%; padding: 8px 11px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .twin-msg.user { align-self: flex-end; background: #000; color: #fff; }
+  .twin-msg.bot { align-self: flex-start; background: #f4f4f4; border-left: 3px solid #2e7d32; }
+  .twin-msg.note { align-self: center; max-width: 100%; color: #777; font-size: 12px; text-align: center; }
+  .twin-msg.error { color: #a32d2d; border-left-color: #a32d2d; }
+  .twin-msg.typing:empty::after { content: "Thinking..."; color: #888; }
+  .twin-sources { display: block; margin-top: 6px; color: #777; font-size: 11px; white-space: normal; }
+  .twin-suggest { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 14px 10px; }
+  .twin-suggest button {
+    padding: 5px 9px; font: inherit; font-size: 12px; text-align: left;
+    background: #fff; color: #333; border: 1px solid #ccc; cursor: pointer;
+  }
+  .twin-suggest button:hover { border-color: #000; color: #000; }
+  .twin-verify:empty { display: none; }
+  .twin-verify { padding: 0 14px 8px; }
+  .twin-form { display: flex; gap: 8px; margin: 0; padding: 10px 14px 6px; border-top: 1px solid #e5e5e5; }
+  .twin-form textarea {
+    flex: 1; height: 40px; max-height: 120px; resize: none;
+    padding: 9px 10px; font: inherit; font-size: 14px; line-height: 1.4;
+    border: 1px solid #ccc; border-radius: 0; color: #333; background: #fff;
+  }
+  .twin-form textarea:focus { border-color: #000; }
+  .twin-form button {
+    padding: 0 14px; font: inherit; font-weight: bold;
+    background: #000; color: #fff; border: 1px solid #000; cursor: pointer;
+  }
+  .twin-form button:disabled { background: #999; border-color: #999; cursor: not-allowed; }
+  .twin-foot { margin: 0; padding: 0 14px 10px; color: #999; font-size: 11px; }
+  @media (max-width: 480px) {
+    .twin-launcher { right: 12px; bottom: 12px; padding: 12px 14px; }
+    .twin-launcher .twin-launcher-text { display: none; }
+    .twin-panel {
+      right: 0; bottom: 0; width: 100vw; max-width: 100vw;
+      height: 85vh; height: 85dvh; max-height: none;
+      border-width: 1px 0 0; box-shadow: none;
+    }
+    .twin-form textarea { font-size: 16px; }
+  }
+</style>
+
+<div class="twin" id="twin-chat"
+     data-api="{{ twin.api_url | escape }}"
+     data-sitekey="{{ twin.turnstile_sitekey | escape }}"
+     data-greeting="{{ twin.greeting | default: 'Hi! I am an AI twin that answers from my own notes. Ask me about my research, projects or experience.' | escape }}">
+
+  <button type="button" class="twin-launcher" aria-controls="twin-panel" aria-expanded="false"
+          aria-label="Open chat: {{ twin_title | escape }}">
+    <i class="fa-solid fa-comment-dots" aria-hidden="true"></i>
+    <span class="twin-launcher-text">Ask my digital twin</span>
+  </button>
+
+  <div class="twin-panel" id="twin-panel" role="dialog" aria-labelledby="twin-title" hidden>
+    <div class="twin-head">
+      <div>
+        <b id="twin-title">{{ twin_title | escape }}</b>
+        <span class="twin-sub">An AI that answers from my notes. It can be wrong; email me for anything important.</span>
+      </div>
+      <button type="button" class="twin-close" aria-label="Close chat"><span aria-hidden="true">&times;</span></button>
+    </div>
+
+    <div class="twin-log" aria-live="polite"></div>
+
+    <div class="twin-suggest">
+      {% if twin.suggestions %}
+        {% for q in twin.suggestions %}<button type="button">{{ q | escape }}</button>{% endfor %}
+      {% else %}
+        <button type="button">What is your research about?</button>
+        <button type="button">Tell me about Desc++</button>
+        <button type="button">What did you do as iTron team leader?</button>
+      {% endif %}
+    </div>
+
+    <div class="twin-verify"></div>
+
+    <form class="twin-form" novalidate>
+      <label for="twin-input" class="sr-only" style="position:absolute;left:-9999px;">Your question</label>
+      <textarea id="twin-input" rows="1" maxlength="500" placeholder="Ask me anything..."></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <p class="twin-foot">Chats are saved anonymously to improve answers.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById('twin-chat');
+  if (!root) return;
+
+  var API = (root.getAttribute('data-api') || '').replace(/\/+$/, '');
+  var SITEKEY = root.getAttribute('data-sitekey') || '';
+  var GREETING = root.getAttribute('data-greeting') || '';
+  var OFFLINE = 'The digital twin is offline right now. Please try again later, or reach me by email.';
+
+  var launcher = root.querySelector('.twin-launcher');
+  var panel = root.querySelector('.twin-panel');
+  var closeBtn = root.querySelector('.twin-close');
+  var logEl = root.querySelector('.twin-log');
+  var suggest = root.querySelector('.twin-suggest');
+  var verifyBox = root.querySelector('.twin-verify');
+  var form = root.querySelector('.twin-form');
+  var input = root.querySelector('#twin-input');
+  var sendBtn = form.querySelector('button');
+
+  var history = [];
+  var session = null;
+  var busy = false;
+  var online = false;
+  var turnstileReady = null;
+
+  function addMsg(kind, text) {
+    var el = document.createElement('div');
+    el.className = 'twin-msg ' + kind;
+    el.textContent = text || '';
+    logEl.appendChild(el);
+    scrollDown();
+    return el;
+  }
+
+  function scrollDown() { logEl.scrollTop = logEl.scrollHeight; }
+
+  function setBusy(value) {
+    busy = value;
+    sendBtn.disabled = value || !online;
+  }
+
+  function openPanel() {
+    panel.hidden = false;
+    launcher.hidden = true;
+    launcher.setAttribute('aria-expanded', 'true');
+    input.focus();
+    if (!online) checkHealth();
+  }
+
+  function closePanel() {
+    panel.hidden = true;
+    launcher.hidden = false;
+    launcher.setAttribute('aria-expanded', 'false');
+    launcher.focus();
+  }
+
+  async function checkHealth() {
+    var old = logEl.querySelector('.twin-status');
+    if (old) old.remove();
+    var status = addMsg('note twin-status', 'Connecting...');
+    setBusy(true);
+    try {
+      var ctrl = new AbortController();
+      var timer = setTimeout(function () { ctrl.abort(); }, 6000);
+      var res = await fetch(API + '/api/health', { signal: ctrl.signal });
+      clearTimeout(timer);
+      var data = await res.json();
+      if (!res.ok || !data.ok) throw new Error('offline');
+      online = true;
+      status.remove();
+      suggest.hidden = history.length > 0;
+      if (!logEl.querySelector('.bot') && GREETING) addMsg('bot', GREETING);
+    } catch (err) {
+      online = false;
+      suggest.hidden = true;
+      status.textContent = OFFLINE;
+      status.classList.add('error');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function loadTurnstile() {
+    if (turnstileReady) return turnstileReady;
+    turnstileReady = new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      s.async = true;
+      s.onload = resolve;
+      s.onerror = function () { turnstileReady = null; reject(new Error('Could not load the verification check.')); };
+      document.head.appendChild(s);
+    });
+    return turnstileReady;
+  }
+
+  async function getTurnstileToken() {
+    await loadTurnstile();
+    return new Promise(function (resolve, reject) {
+      verifyBox.innerHTML = '';
+      var holder = document.createElement('div');
+      verifyBox.appendChild(holder);
+      var id = window.turnstile.render(holder, {
+        sitekey: SITEKEY,
+        appearance: 'interaction-only',
+        callback: function (token) {
+          resolve(token);
+          setTimeout(function () { window.turnstile.remove(id); verifyBox.innerHTML = ''; }, 0);
+        },
+        'error-callback': function () { reject(new Error('Verification failed. Please refresh the page.')); },
+        'expired-callback': function () { window.turnstile.reset(id); }
+      });
+    });
+  }
+
+  async function errorFrom(res) {
+    var message = 'Something went wrong. Please try again.';
+    try {
+      var data = await res.json();
+      if (typeof data.detail === 'string') message = data.detail;
+    } catch (e) { /* keep default */ }
+    var err = new Error(message);
+    err.status = res.status;
+    return err;
+  }
+
+  async function ensureSession(force) {
+    if (session && !force) return session;
+    var token = SITEKEY ? await getTurnstileToken() : null;
+    var res = await fetch(API + '/api/session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ turnstile_token: token })
+    });
+    if (!res.ok) throw await errorFrom(res);
+    session = (await res.json()).session;
+    return session;
+  }
+
+  async function postChat(forceSession) {
+    var token = await ensureSession(forceSession);
+    return fetch(API + '/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Session': token },
+      body: JSON.stringify({ messages: history })
+    });
+  }
+
+  async function send(text) {
+    text = (text || '').trim();
+    if (!text || busy || !online) return;
+    setBusy(true);
+    suggest.hidden = true;
+    input.value = '';
+    autoGrow();
+
+    addMsg('user', text);
+    history.push({ role: 'user', content: text });
+    var bot = addMsg('bot typing', '');
+    var answer = '';
+    var sources = [];
+
+    try {
+      var res = await postChat(false);
+      if (res.status === 401) res = await postChat(true);
+      if (!res.ok) throw await errorFrom(res);
+
+      var reader = res.body.getReader();
+      var decoder = new TextDecoder();
+      var buffer = '';
+      var finished = false;
+      while (!finished) {
+        var chunk = await reader.read();
+        if (chunk.done) break;
+        buffer += decoder.decode(chunk.value, { stream: true });
+        var parts = buffer.split('\n\n');
+        buffer = parts.pop();
+        for (var i = 0; i < parts.length; i++) {
+          var line = parts[i].replace(/^data: ?/, '');
+          if (!line) continue;
+          var ev = JSON.parse(line);
+          if (ev.type === 'delta') {
+            answer += ev.text;
+            bot.textContent = answer;
+            scrollDown();
+          } else if (ev.type === 'sources') {
+            sources = ev.sources || [];
+          } else if (ev.type === 'error') {
+            throw new Error(ev.message);
+          } else if (ev.type === 'done') {
+            finished = true;
+          }
+        }
+      }
+      if (!answer.trim()) throw new Error('No answer came back. Please try again.');
+
+      history.push({ role: 'assistant', content: answer });
+      if (sources.length) {
+        var src = document.createElement('span');
+        src.className = 'twin-sources';
+        src.textContent = 'Based on: ' + sources.map(function (s) { return s.title; }).join(', ');
+        bot.appendChild(src);
+      }
+    } catch (err) {
+      history.pop();
+      bot.classList.add('error');
+      bot.textContent = (err && err.message && err.message !== 'Failed to fetch')
+        ? err.message
+        : 'Lost the connection. Please try again.';
+    } finally {
+      bot.classList.remove('typing');
+      scrollDown();
+      setBusy(false);
+      input.focus();
+    }
+  }
+
+  function autoGrow() {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight + 2, 120) + 'px';
+  }
+
+  launcher.addEventListener('click', openPanel);
+  closeBtn.addEventListener('click', closePanel);
+  panel.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePanel();
+  });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    send(input.value);
+  });
+  input.addEventListener('input', autoGrow);
+  input.addEventListener('keydown', function (e) {
+    // Enter sends, Shift+Enter adds a line; ignore Enter while an IME (e.g. 注音) is composing.
+    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && e.keyCode !== 229) {
+      e.preventDefault();
+      send(input.value);
+    }
+  });
+  suggest.addEventListener('click', function (e) {
+    var btn = e.target.closest('button');
+    if (btn) send(btn.textContent);
+  });
+})();
+</script>
