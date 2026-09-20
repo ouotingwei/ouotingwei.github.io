@@ -319,8 +319,8 @@ nav ul li a:hover { color: #000 !important; border-bottom: 1px solid #000; }
   z-index: 0; /* 避免蓋住其他元素 */
 }
 .map-tooltip img {
-  width: 270px;
-  max-width: 60vw;
+  width: 100px;
+  max-width: 40vw;
   border-radius: 4px;
   display: block;
   margin-bottom: 4px;
