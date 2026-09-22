@@ -38,6 +38,7 @@
   .twin-msg.bot { align-self: flex-start; background: #f4f4f4; border-left: 3px solid #2e7d32; }
   .twin-msg.note { align-self: center; max-width: 100%; color: #777; font-size: 12px; text-align: center; }
   .twin-msg.error { color: #a32d2d; border-left-color: #a32d2d; }
+  .twin-msg.queued:not(.error) { color: #777; font-style: italic; }
   .twin-msg.typing:empty::after { content: "Thinking..."; color: #888; }
   .twin-sources { display: block; margin-top: 6px; color: #777; font-size: 11px; white-space: normal; }
   .twin-suggest { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 14px 10px; }
@@ -152,6 +153,15 @@
   }
 
   function scrollDown() { logEl.scrollTop = logEl.scrollHeight; }
+
+  function queueText(ev) {
+    var n = ev.ahead || 0;
+    var wait = ev.eta || 0;
+    var eta = wait < 60 ? 'about ' + Math.max(wait, 5) + ' seconds'
+                        : 'about ' + Math.round(wait / 60) + ' min';
+    if (n <= 1) return 'Someone else is asking right now. You\'re next, ' + eta + '...';
+    return 'You\'re in line: ' + n + ' people ahead of you, ' + eta + '...';
+  }
 
   function setBusy(value) {
     busy = value;
@@ -297,12 +307,18 @@
           var line = parts[i].replace(/^data: ?/, '');
           if (!line) continue;
           var ev = JSON.parse(line);
-          if (ev.type === 'delta') {
+          if (ev.type === 'queue') {
+            bot.textContent = queueText(ev);
+            bot.classList.add('queued');
+            scrollDown();
+          } else if (ev.type === 'delta') {
             answer += ev.text;
             bot.textContent = answer;
             scrollDown();
           } else if (ev.type === 'sources') {
             sources = ev.sources || [];
+            if (!answer) bot.textContent = '';
+            bot.classList.remove('queued');
           } else if (ev.type === 'error') {
             throw new Error(ev.message);
           } else if (ev.type === 'done') {
