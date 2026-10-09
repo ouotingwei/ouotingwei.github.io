@@ -418,3 +418,27 @@ nav ul li a:hover { color: #000 !important; border-bottom: 1px solid #000; }
     max-width: 100%;
   }
 }
+
+/* else */
+.exp-org {
+  display: block;
+  color: #000;
+}
+
+.exp-role {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.9em;
+  font-style: italic;
+  font-weight: normal;
+  color: #000;
+}
+
+.exp-desc {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.9em;
+  font-weight: normal;
+  color: #000;
+  line-height: 1.5;
+}

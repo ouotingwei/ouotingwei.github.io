@@ -7,7 +7,7 @@ logo: assets/pic/logo.jpg
 
 # Digital twin 聊天（api_url 留空時不會顯示聊天按鈕）
 twin:
-  api_url: "https://wades-mac-mini.tail0d4913.ts.net"            # 例如 https://twin.你的網域.com
+  api_url: "https://wades-mac-mini.tail0d4913.ts.net"        
   turnstile_sitekey: ""  # Cloudflare Turnstile 的 site key
   name: "Wade"
   greeting: "Ask me anything — I'm Wade's AI twin, and I'll answer from his notes as best I can. 中文也可以。"

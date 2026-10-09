@@ -35,9 +35,10 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
 
 </div>
 
-<div class="unified-label" style="text-align: left; margin-left: 10px;">Publications</div>
+<div class="unified-label" style="text-align: left; margin-left: 10px;">Publication</div>
 <div class="scholarship-list">
 
+  <!-- Desc++ -->
   <div class="scholarship-item" style="align-items: flex-start; gap: 20px;">
     <!-- 左邊縮圖 -->
     <div style="width: 280px; flex-shrink: 0;">
@@ -45,30 +46,30 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
            aria-label="paper thumbnail" style="width: 100%; border-radius: 4px; border: 1px solid #ddd; display: block;"></video>
     </div>
 
-  <!-- 右邊資訊 -->
-  <span class="s-name" style="flex: 1;">
-    <strong style="font-size: 1em; color: #000;">
-      Desc++: Efficient Descriptor Enhancement for Data Association in Existing Visual SLAM Systems
-    </strong><br>
+    <!-- 右邊資訊 -->
+    <span class="s-name" style="flex: 1;">
+      <strong style="font-size: 1em; color: #000;">
+        Desc++: Efficient Descriptor Enhancement for Data Association in Existing Visual SLAM Systems
+      </strong><br>
 
-  <span style="font-size: 0.9em; color: #555; margin-top: 4px; display: block;">
-    <span class="me">Ting-Wei Ou</span>, H.T. Lin, and Kuu-Young Young
-  </span>
+      <span style="font-size: 0.9em; color: #555; margin-top: 4px; display: block;">
+        <span class="me">Ting-Wei Ou</span>, H.T. Lin, and Kuu-Young Young
+      </span>
 
-  <span style="font-size: 0.88em; color: #888; margin-top: 4px; display: block; font-style: italic;">
-    Comming Soon...
-  </span>
+      <span style="font-size: 0.88em; color: #888; margin-top: 4px; display: block; font-style: italic;">
+        IEEE Access, 2026.
+      </span>
 
-  <!-- 超連結按鈕 -->
-  <span style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
-    <a href="https://arxiv.org/abs/2607.11099" target="_blank" class="btn-link">📄 arXiv</a>
-    <a href="https://github.com/ouotingwei/DescPP.git" target="_blank" class="btn-link">💻 GitHub</a>
-    <a href="https://ouotingwei.github.io/DescPP_website" target="_blank" class="btn-link">🌐 Demo</a>
-  </span>
-  </span>
+      <!-- 超連結按鈕 -->
+      <span style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
+        <a href="https://arxiv.org/abs/2607.11099" target="_blank" class="btn-link">📄 arXiv</a>
+        <a href="https://github.com/ouotingwei/DescPP.git" target="_blank" class="btn-link">💻 GitHub</a>
+        <a href="https://ouotingwei.github.io/DescPP_website" target="_blank" class="btn-link">🌐 Demo</a>
+      </span>
+    </span>
   </div>
 
-<!-- SMC -->
+  <!-- SMC 2025 -->
   <div class="scholarship-item" style="align-items: flex-start; gap: 20px;">
     <!-- 左邊縮圖 -->
     <div style="width: 280px; flex-shrink: 0;">
@@ -76,54 +77,60 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
            aria-label="paper thumbnail" style="width: 100%; border-radius: 4px; border: 1px solid #ddd; display: block;"></video>
     </div>
 
-  <!-- 右邊資訊 -->
-  <span class="s-name" style="flex: 1;">
-    <strong style="font-size: 1em; color: #000;">
-      Development of an Autonomous Mobile Robotic System for Efficient and Percise Disinfection
-    </strong><br>
+    <!-- 右邊資訊 -->
+    <span class="s-name" style="flex: 1;">
+      <strong style="font-size: 1em; color: #000;">
+        Development of an Autonomous Mobile Robotic System for Efficient and Precise Disinfection
+      </strong><br>
 
-  <span style="font-size: 0.9em; color: #555; margin-top: 4px; display: block;">
-    <span class="me">Ting-Wei Ou</span>, J.H. Jiang, G.L. Huang, and Kuu-Young Young
-  </span>
+      <span style="font-size: 0.9em; color: #555; margin-top: 4px; display: block;">
+        <span class="me">Ting-Wei Ou</span>, J.H. Jiang, G.L. Huang, and Kuu-Young Young
+      </span>
 
-  <span style="font-size: 0.88em; color: #888; margin-top: 4px; display: block; font-style: italic;">
-    IEEE International Conference on Systems, Man, and Cybernetics (SMC) | Oct 2025, Vienna, Austria.
-  </span>
+      <span style="font-size: 0.88em; color: #888; margin-top: 4px; display: block; font-style: italic;">
+        IEEE International Conference on Systems, Man, and Cybernetics (SMC) | Oct 2025, Vienna, Austria.
+      </span>
 
-  <!-- 超連結按鈕 -->
-  <span style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
-    <a href="https://arxiv.org/abs/2507.11270" target="_blank" class="btn-link">📄 arXiv</a>
-    <a href="https://www.youtube.com/watch?v=wHcWzOcoMPM" target="_blank" class="btn-link">🎬 Video</a>
-  </span>
-  </span>
+      <!-- 超連結按鈕 -->
+      <span style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
+        <a href="https://arxiv.org/abs/2507.11270" target="_blank" class="btn-link">📄 arXiv</a>
+        <a href="https://www.youtube.com/watch?v=wHcWzOcoMPM" target="_blank" class="btn-link">🎬 Video</a>
+      </span>
+    </span>
   </div>
 
-<!-- Scientific Amarican -->
+</div>
+
+
+<div class="unified-label" style="text-align: left; margin-left: 10px; margin-top: 32px;">Article</div>
+<div class="scholarship-list">
+
+  <!-- Scientific American -->
   <div class="scholarship-item" style="align-items: flex-start; gap: 20px;">
     <!-- 左邊縮圖 -->
     <div style="width: 280px; flex-shrink: 0;">
-      <img src="assets/pic/ai_assistant.jpg" loading="lazy" alt="paper thumbnail"
+      <img src="assets/pic/ai_assistant.jpg" loading="lazy" alt="article thumbnail"
            style="width: 100%; border-radius: 4px; border: 1px solid #ddd;">
     </div>
 
-  <!-- 右邊資訊 -->
-  <span class="s-name" style="flex: 1;">
-    <strong style="font-size: 1em; color: #000;">
-      Create an AI assistant for Industrial Robots
-    </strong><br>
+    <!-- 右邊資訊 -->
+    <span class="s-name" style="flex: 1;">
+      <strong style="font-size: 1em; color: #000;">
+        Creating an AI Assistant for Industrial Robots
+      </strong><br>
 
-  <span style="font-size: 0.9em; color: #555; margin-top: 4px; display: block;">
-    J.Y Long, Yu Wang, <span class="me">Ting-Wei Ou</span>, and Kuu-Young Young
-  </span>
+      <span style="font-size: 0.9em; color: #555; margin-top: 4px; display: block;">
+        J.Y. Long, Yu Wang, <span class="me">Ting-Wei Ou</span>, and Kuu-Young Young
+      </span>
 
-  <span style="font-size: 0.88em; color: #888; margin-top: 4px; display: block; font-style: italic;">
-    Scientific American 2024.05 (Taiwan Scientists Co., Ltd)
-  </span>
+      <span style="font-size: 0.88em; color: #888; margin-top: 4px; display: block; font-style: italic;">
+        Scientific American (Taiwan Edition), May 2024.
+      </span>
 
-  <!-- 超連結按鈕 -->
-  <span style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
-    <a href="https://yourdemo.com" target="_blank" class="btn-link">🌐 Article</a>
-  </span>
+      <!-- 超連結按鈕 -->
+      <span style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
+        <a href="https://yourdemo.com" target="_blank" class="btn-link">📰 Article</a>
+      </span>
   </span>
   </div>
 
@@ -292,29 +299,29 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
 <div class="scholarship-list">
 
   <div class="scholarship-item highlight-grant">
-    <span class="s-year">2026 - Pres.</span>
+    <span class="s-year">2026 – Present</span>
     <span class="s-name">
-      <strong>Industrial Technology Research Institution (ITRI) - MMSL</strong><br>
-      Intern<br>
-      <span style="font-weight: normal;">Integrating learning-based point cloud registration into a production HD mapping pipeline to improve robustness over classical scan matching in challenging environments.</span>
+      <strong class="exp-org">Industrial Technology Research Institute (ITRI) – MMSL</strong>
+      <span class="exp-role">Intern</span>
+      <span class="exp-desc">Integrating learning-based point cloud registration into a production HD mapping pipeline to improve robustness over classical scan matching in challenging environments.</span>
     </span>
   </div>
 
   <div class="scholarship-item">
     <span class="s-year">2023 – 2024</span>
     <span class="s-name">
-      <strong>Hong Lang Technology Co., Ltd.</strong><br>
-      Automatic System Development Engineer<br>
-      <span style="font-weight: normal;">Developed automated machinery systems to modernize traditional footwear manufacturing processes for industrial-scale production.</span>
+      <strong class="exp-org">Hong Lang Technology Co., Ltd.</strong>
+      <span class="exp-role">Automation System Development Engineer</span>
+      <span class="exp-desc">Developed automated machinery systems to modernize traditional footwear manufacturing processes for industrial-scale production.</span>
     </span>
   </div>
 
   <div class="scholarship-item">
     <span class="s-year">2020 – 2021</span>
     <span class="s-name">
-      <strong>NYCU iTron Robotic Team</strong><br>
-      Team Leader<br>
-      <span style="font-weight: normal;">Led the design, software-hardware integration, and competition deployment of customized robotic platforms.</span>
+      <strong class="exp-org">NYCU iTron Robotic Team</strong>
+      <span class="exp-role">Team Leader</span>
+      <span class="exp-desc">Led the design, software-hardware integration, and competition deployment of customized robotic platforms.</span>
     </span>
   </div>
 </div>

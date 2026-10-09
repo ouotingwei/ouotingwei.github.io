@@ -40,3 +40,27 @@
   lat: 31.765179
   lng: 119.340979
   photo: "/assets/pic/travel/changzhou.jpeg"
+
+- name: "IEEE/RSJ IROS 2026"
+  city: "Pittsburgh, USA"
+  lat: 40.4406
+  lng: -79.9959
+  photo: "/assets/pic/travel/iros26.jpg"   
+
+- name: "Travel"
+  city: "Philadelphia, USA"
+  lat: 39.9526
+  lng: -75.1652
+  photo: "/assets/pic/travel/Philadelphia.jpg"
+
+- name: "Travel"
+  city: "New York, USA"
+  lat: 40.7128
+  lng: -74.0060
+  photo: "/assets/pic/travel/nyc.jpg"
+
+- name: "Travel"
+  city: "Seoul, Korea"
+  lat: 37.5665
+  lng: 126.9780
+  photo: "/assets/pic/travel/seoul.jpg"
