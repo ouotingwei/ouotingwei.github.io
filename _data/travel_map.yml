@@ -51,7 +51,7 @@
   city: "Philadelphia, USA"
   lat: 39.9526
   lng: -75.1652
-  photo: "/assets/pic/travel/Philadelphia.jpg"
+  photo: "/assets/pic/travel/philadelphia.jpg"
 
 - name: "Travel"
   city: "New York, USA"
