@@ -3,10 +3,11 @@ layout: default
 title: Home
 ---
 
-Hi! I'm Wade, a Master's student in Robotics at **[National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/nycu/en/index)**, where I work under the supervision of **[Prof. Kuu-Young Young](https://robotics.nycu.edu.tw/tw/teachers/show.php?num=14&page=2)** in the Human and Machine Lab. I received my B.S. in Mechanical Engineering from NYCU in 2023.
+Hi! I'm Wade, a Master's student in Robotics at [National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/nycu/en/index), advised by [Prof. Kuu-Young Young](https://robotics.nycu.edu.tw/tw/teachers/show.php?num=14&page=2) in the Human and Machine Lab. I received my B.S. in Mechanical Engineering from NYCU in 2023.
 
+My research focuses on **efficient and robust robot perception**, particularly **localization and mapping**. I believe good research ideas often come from the corner cases that real-world deployment exposes, and that a system is only as useful as its ability to keep working when those cases occur. This belief led me to join the [ITRI](https://www.itri.org.tw/english/index.aspx) Autonomous Driving & Mapping Team as a Research Intern, where I integrated learning-based LiDAR registration into the team's HD mapping pipeline to improve registration robustness. Before that, my interest in building systems that work outside the lab grew through hands-on engineering, both as Team Leader of the [NYCU iTron Robotics Team](https://itrongoto.us/) and as an Automation System Development Engineer at [Hong Lang Technology](https://www.honglang-tw.com/?lang=en).
 
-My research sits at the intersection of **Efficient Robot Perception**, including **Localization and Mapping**, with a particular focus on improving system robustness in challenging environments. Beyond academia, I have a strong passion for building intelligent robotic systems and tackling industrial problems, drawing from my experience as a Research Intern at the **[Industrial Technology Research Institute (ITRI)](https://www.itri.org.tw/english/index.aspx)** Autonomous Driving & Mapping Team, Team Leader of the **[NYCU iTron Robotics Team](https://itrongoto.us/)**, and as an Automatic System Development Engineer at **[Hong Lang Technology Co., Ltd](https://www.honglang-tw.com/?lang=en)**.
+I expect to graduate in February 2027 and am looking for PhD positions. Feel free to reach out!
 
 <div class="unified-label" style="text-align: left; margin-left: 10px;">Education</div>
 <div class="scholarship-list">
@@ -129,7 +130,7 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
 
       <!-- 超連結按鈕 -->
       <span style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;">
-        <a href="https://yourdemo.com" target="_blank" class="btn-link">📰 Article</a>
+        <a href="https://www.scitw.cc/posts/AI-Robit" target="_blank" class="btn-link">📰 Article</a>
       </span>
   </span>
   </div>
@@ -260,9 +261,9 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
   </span>
 
   <!-- 超連結按鈕 -->
-  <span style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
+  <!-- <span style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
     <a href="https://www.youtube.com/watch?v=sccCDnw98aE" target="_blank" class="btn-link">🎬 YouTube</a>
-  </span>
+  </span> -->
   </span>
   </div>
 
@@ -299,7 +300,7 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
 <div class="scholarship-list">
 
   <div class="scholarship-item highlight-grant">
-    <span class="s-year">2026 – Present</span>
+    <span class="s-year">2026 – Pres.</span>
     <span class="s-name">
       <strong class="exp-org">Industrial Technology Research Institute (ITRI) – MMSL</strong>
       <span class="exp-role">Intern</span>
@@ -339,7 +340,7 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
 </div>
 
 <!-- Honors and Scholarships -->
-<div class="unified-label" style="text-align: left; margin-left: 10px;">Honors and scholarships</div>
+<!-- <div class="unified-label" style="text-align: left; margin-left: 10px;">Honors and scholarships</div>
 <div class="scholarship-list">
   <div class="scholarship-item highlight-grant">
     <span class="s-year">2026</span>
@@ -388,4 +389,4 @@ My research sits at the intersection of **Efficient Robot Perception**, includin
       26th TDK Robocon: Honorable Mention (Autonomous Robotics)<br>
     </span>
   </div>
-</div>
+</div> -->
