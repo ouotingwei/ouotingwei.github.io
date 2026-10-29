@@ -1,444 +1,860 @@
 ---
 ---
-@import "{{ site.theme }}";
+/* ============================================================
+   設計規則（Design tokens）
+   Apple 風格：近黑文字、灰階層次、淺灰區塊、單一藍色重點色
+   不再載入 minimal 主題的 CSS，所有樣式都在這個檔案
+   ============================================================ */
+:root {
+  --ink:         #1d1d1f;  /* 標題與主要文字 */
+  --text:        #1d1d1f;
+  --secondary:   #6e6e73;  /* 次要文字：作者、描述 */
+  --tertiary:    #86868b;  /* 最弱：期刊、註解、頁尾 */
+  --rule:        #d2d2d7;  /* 分隔線 */
+  --surface:     #f5f5f7;  /* 淺灰區塊、卡片 */
+  --surface-2:   #e8e8ed;  /* 卡片內的縮圖底 */
+  --accent:      #0071e3;  /* 唯一重點色：按鈕、標記 */
+  --accent-text: #0066cc;  /* 白底上的連結文字（對比較高） */
+  --accent-hover:#0077ed;
+  --accent-soft: #e8f2fd;
+
+  /* 舊名稱保留給聊天視窗使用 */
+  --accent-strong: var(--accent-text);
+  --muted: var(--secondary);
+  --faint: var(--tertiary);
+
+  --radius:    12px;
+  --radius-lg: 20px;
+  --radius-pill: 980px;
+
+  --container: 980px;
+  --gutter: 22px;
+  --nav-h: 52px;
+  --nav-gap: 12px;   /* 導覽列與視窗頂端的距離 */
+
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter",
+          "Helvetica Neue", "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei",
+          Arial, sans-serif;
+}
 
 /* ============================================================
-   1. 基礎設定：確保白色背景與文字對比
+   1. 基礎
    ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + var(--nav-gap) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  background-color: #ffffff !important;
-  color: #333333 !important; /* 深灰色文字，比純黑更耐看 */
-}
-
-/* ============================================================
-   2. 統一卡片式佈局 (黑灰簡約版)
-   ============================================================ */
-
-.pub-card, .award-card {
-  background: #ffffff; 
-  border: 1px solid #eeeeee;    /* 極淡的邊框 */
-  border-left: 5px solid #000000; /* 強調用的黑色左邊條 */
-  padding: 25px;
-  margin-bottom: 40px;
-  border-radius: 2px;            /* 較小的圓角，更有稜有角 */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* 輕微的投影，增加浮動感 */
-}
-
-.pub-title, .award-title {
-  font-size: 1.3em;
-  font-weight: 800;              /* 加粗標題 */
-  color: #000000;                /* 純黑標題 */
-  margin-bottom: 12px;
-  display: block;
-  line-height: 1.4;
-}
-
-.pub-metadata, .award-metadata {
-  font-size: 0.95em;
-  line-height: 1.6;
-  color: #666666;                /* 中灰色中繼資料 */
-  margin-bottom: 18px;
-}
-
-.pub-metadata strong, .award-metadata strong {
-  color: #333333;
-}
-
-/* 名字底線強調 */
-.me {
-  text-decoration: none;
-  border-bottom: 2px solid #000000; /* 使用粗底線代替變色 */
-  font-weight: bold;
-  color: #000000;
-}
-
-/* 統一媒體容器 */
-.pub-figure, .award-media {
-  margin: 20px 0;
-  border-radius: 4px;
-  overflow: hidden;
-  border: 1px solid #dddddd;
-}
-
-/* ============================================================
-   3. BeerSlider：黑灰風格調整
-   ============================================================ */
-
-.slider-flex-container {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  gap: 20px;
-  margin: 25px 0;
-}
-
-.unified-label {
-  text-align: center;
-  font-size: 1em;
-  font-weight: bold;
-  color: #000000;
-  margin: 30px 0 10px 0;
-  text-transform: uppercase;     /* 大寫增加正式感 */
-  letter-spacing: 2px;
-}
-
-.beer-slider {
-  aspect-ratio: 535 / 427 !important;
-  border: 1px solid #ddd;
-}
-
-/* 修正 Reveal 靜止效果 (保持不變) */
-.beer-reveal img {
-  position: absolute;
-  top: 0; left: 0;
-  width: auto !important;
-  height: 100% !important;
-  min-width: 100%; 
-}
-
-/* ============================================================
-   4. 簡約黑白按鈕 (Monochrome Buttons)
-   ============================================================ */
-
-.pub-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 30px;
-}
-
-.btn-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 20px;
-  font-size: 0.85em;
-  font-weight: bold;
-  text-decoration: none !important;
-  border-radius: 0px;             /* 純方角，最簡約 */
-  
-  /* 預設：白底黑框 */
-  background: #ffffff;
-  border: 1px solid #000000;
-  color: #000000 !important;
-  
-  transition: all 0.2s ease;
-}
-
-/* 滑鼠懸停：黑底白字 (全站統一) */
-.btn-link:hover {
-  background: #000000;
-  color: #ffffff !important;
-  transform: none;                /* 移除浮動，保持穩重 */
-  box-shadow: 4px 4px 0px #cccccc; /* 經典的硬陰影效果 */
-}
-
-/* ============================================================
-   5. 獎學金清單 (Scholarships)
-   ============================================================ */
-
-.scholarship-list {
-  margin-top: 20px;
-  border-top: 2px solid #000;
-}
-
-.scholarship-item {
-  display: flex;
-  padding: 15px 0;
-  border-bottom: 1px solid #eeeeee;
-}
-
-.s-year {
-  width: 100px;
-  font-weight: 800;
-  color: #000;
-}
-
-.s-name {
-  flex: 1;
-  color: #444;
-}
-
-.highlight-grant {
-  background: #f9f9f9; /* 極淺灰高亮 */
-  font-weight: bold;
-}
-
-/* ============================================================
-   6. 導覽列與側邊欄 (適配白色背景)
-   ============================================================ */
-header a { color: #000 !important; }
-nav ul li a { color: #666 !important; text-decoration: none; }
-nav ul li a:hover { color: #000 !important; border-bottom: 1px solid #000; }
-
-/* 桌機（> 960px）才使用左右兩欄；
-   原本這幾行沒有包在 media query 裡，又加了 !important，
-   把 minimal 主題內建的手機版規則全部蓋掉，手機才會跑版 */
-@media screen and (min-width: 961px) {
-  body .wrapper {
-    width: 90% !important;
-    max-width: 1200px !important;
-  }
-
-  body header {
-    width: 30% !important;
-    position: relative !important;
-  }
-
-  body section {
-    width: 66% !important;
-    float: right !important;
-  }
-}
-
-.sidebar-links {
-  list-style: none;
-  padding: 0;
   margin: 0;
+  background: #fff;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.022em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.sidebar-links li {
-  margin-bottom: 8px;
-}
+h1, h2, h3, h4, p, ol, ul { margin: 0; }
+h1, h2, h3, h4 { text-wrap: balance; }
+ol, ul { padding: 0; list-style: none; }
+img, video { max-width: 100%; }
+strong { font-weight: 600; color: var(--ink); }
 
-.nav-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+a {
+  color: var(--accent-text);
   text-decoration: none;
 }
 
-.nav-link > i {
-  width: 20px;
-  text-align: center;
-  font-size: 18px;
+a:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
-.nav-link.active {
-  color: #2e7d32;
-  text-decoration: underline;
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
 }
 
-/* Research Tools 區塊 */
-.sidebar-section {
-  margin-top: 24px;
-  padding-top: 18px;
-  border-top: 1px solid #e5e5e5;
-}
-
-.sidebar-section-title {
-  margin-bottom: 10px;
-  color: #777;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-// tools
-.tool-link {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  padding: 11px 12px;
-  border: 1px solid #e1e5e9;
-  border-radius: 8px;
-  color: #333;
-  text-decoration: none;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
-}
-
-.tool-link:hover {
-  border-color: #2e7d32;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-  transform: translateY(-1px);
-}
-
-.tool-link > .fa-newspaper {
-  flex: 0 0 auto;
-  color: #2e7d32;
-  font-size: 21px;
-}
-
-.tool-text {
-  display: flex;
-  flex: 1;
-  min-width: 0;
-  flex-direction: column;
-  line-height: 1.25;
-}
-
-.tool-text strong {
-  color: #333;
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 12px;
+  z-index: 3000;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: #fff;
   font-size: 14px;
 }
 
-.tool-text small {
-  margin-top: 3px;
-  color: #777;
-  font-size: 11px;
-  line-height: 1.35;
+.skip-link:focus { top: 10px; }
+
+/* ============================================================
+   2. 按鈕
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
-.external-icon {
-  flex: 0 0 auto;
-  color: #aaa;
-  font-size: 10px;
+.btn:hover { text-decoration: none; }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
 }
 
-// news
-.news-list {
-  list-style: none;
-  padding: 0;
-  margin: 8px 0 0 0;
+.btn-primary:hover { background: var(--accent-hover); }
+
+.btn-secondary {
+  border-color: var(--accent);
+  background: transparent;
+  color: var(--accent-text);
 }
-.news-list li {
-  font-size: 0.8em;
+
+.btn-secondary:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-sm {
+  min-height: 28px;
+  padding: 0 14px;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+}
+
+/* 圓形圖示按鈕 */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--secondary);
+  font-size: 18px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* 卡片裡的小連結 */
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 32px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  background: #fff;
+  color: var(--accent-text);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.016em;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pill > i { font-size: 13px; }
+
+.pill:hover {
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* 狀態標籤 */
+.badge {
+  display: block;
+  width: fit-content;
+  margin-top: 6px;
+  padding: 2px 9px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   line-height: 1.5;
-  margin-bottom: 10px;
-  color: #555;
-}
-.news-date {
-  display: block;
-  font-weight: bold;
-  color: #2e7d32;
-  font-size: 0.9em;
 }
 
-// travel map
-#travel-map {
+/* ============================================================
+   3. 頂部導覽列（毛玻璃）
+   ============================================================ */
+/* 外層只負責 sticky 定位，本身透明、不擋點擊；
+   往下的負 margin 讓 Hero 延伸到導覽列底下，毛玻璃才有東西可以模糊 */
+.globalnav {
+  position: sticky;
+  top: var(--nav-gap);
+  z-index: 1000;
+  height: var(--nav-h);
+  margin: var(--nav-gap) 0 calc(-1 * (var(--nav-h) + var(--nav-gap)));
+  padding: 0 var(--gutter);
+  pointer-events: none;
+}
+
+/* 懸浮的玻璃膠囊 */
+.globalnav-inner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  max-width: var(--container);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 10px 0 24px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  pointer-events: auto;
+}
+
+/* 瀏覽器不支援毛玻璃時，改用不透明白底，確保文字看得清楚 */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .globalnav-inner { background: rgba(255, 255, 255, 0.96); }
+}
+
+.globalnav-name {
+  margin-right: auto;
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.globalnav-name:hover { text-decoration: none; }
+
+.globalnav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.globalnav-links a {
+  color: var(--ink);
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.globalnav-links a:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+/* ============================================================
+   4. Hero
+   ============================================================ */
+/* 頂端一層很淡的藍色光暈，讓導覽列的毛玻璃看得出來 */
+.hero {
+  padding: calc(var(--nav-h) + var(--nav-gap) + 88px) 0 48px;
+  background:
+    radial-gradient(60% 420px at 50% 0%, rgba(0, 113, 227, 0.10), rgba(0, 113, 227, 0) 70%),
+    radial-gradient(40% 320px at 85% 10%, rgba(94, 92, 230, 0.06), rgba(94, 92, 230, 0) 70%);
+  text-align: center;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-photo {
+  width: 168px;
+  height: 168px;
+  margin-bottom: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+
+.hero-title {
+  color: var(--ink);
+  font-size: 64px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+}
+
+.hero-subtitle {
+  max-width: 620px;
+  text-wrap: balance;
+  margin-top: 14px;
+  color: var(--secondary);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 0.009em;
+  line-height: 1.33;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.hero-social {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* 進場動畫：只在 Hero，一次 */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-inner > * {
+    animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .hero-inner > :nth-child(2) { animation-delay: 0.06s; }
+  .hero-inner > :nth-child(3) { animation-delay: 0.12s; }
+  .hero-inner > :nth-child(4) { animation-delay: 0.18s; }
+  .hero-inner > :nth-child(5) { animation-delay: 0.24s; }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* 自我介紹 */
+.bio {
+  max-width: calc(720px + var(--gutter) * 2);
+  padding-bottom: 96px;
+}
+
+.bio p {
+  color: var(--secondary);
+  font-size: 19px;
+  letter-spacing: 0.012em;
+  line-height: 1.6;
+}
+
+.bio p + p { margin-top: 1.1em; }
+
+/* 左右對齊：自我介紹與各種說明文字
+   搭配英文斷字（hyphens），避免單字間距被拉太開；最後一行仍靠左 */
+.bio p,
+.tile-desc,
+.tl-desc,
+.card-desc {
+  text-align: justify;
+  text-justify: inter-word;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  hyphenate-limit-chars: 7 3 3;
+}
+.bio strong { color: var(--ink); }
+
+/* ============================================================
+   5. 區塊與標題
+   ============================================================ */
+.band {
+  padding: 96px 0;
+}
+
+.band-gray {
+  background: var(--surface);
+}
+
+.section-title {
+  margin-bottom: 40px;
+  color: var(--ink);
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.009em;
+  line-height: 1.08;
+}
+
+.subsection-title {
+  margin: 56px 0 20px;
+  color: var(--ink);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.009em;
+  line-height: 1.17;
+}
+
+.section-title + .subsection-title { margin-top: 0; }
+
+/* 自己的名字 */
+.me {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ============================================================
+   6. News
+   ============================================================ */
+.news {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: #fff;
+}
+
+.news-item {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 20px;
+  padding: 20px 28px;
+  border-top: 1px solid var(--surface-2);
+}
+
+.news-item:first-child { border-top: 0; }
+
+.news-date {
+  color: var(--tertiary);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.news-text {
+  color: var(--text);
+  font-size: 17px;
+}
+
+/* ============================================================
+   7. 論文 / 文章大卡片
+   ============================================================ */
+.feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.feature + .feature { margin-top: 20px; }
+
+.feature-media {
+  position: relative;
+  min-height: 280px;
+  background: var(--surface-2);
+}
+
+.feature-media video,
+.feature-media img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: 270px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
+  height: 100%;
+  object-fit: cover;
+}
+
+.feature-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+}
+
+.feature-title {
+  color: var(--ink);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.009em;
+  line-height: 1.25;
+}
+
+.feature-authors {
+  margin-top: 12px;
+  color: var(--secondary);
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+.feature-venue {
+  margin-top: 4px;
+  color: var(--tertiary);
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   8. 專案磁磚（兩欄）
+   ============================================================ */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: #fff;
+}
+
+.tile-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--surface-2);
+}
+
+.tile-media video,
+.tile-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 直式影片：完整顯示 */
+.media--contain video,
+.media--contain img {
+  object-fit: contain;
+}
+
+.tile-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 28px 30px 32px;
+}
+
+.tile-title {
+  color: var(--ink);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.011em;
+  line-height: 1.24;
+}
+
+.tile-desc {
+  margin-top: 10px;
+  color: var(--secondary);
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  line-height: 1.55;
+}
+
+.tile .pill { background: var(--surface); }
+.tile .pill:hover { background: var(--accent); }
+
+/* 讓連結貼齊卡片底部，兩欄高度不同時比較整齊 */
+.tile .pills { margin-top: auto; padding-top: 20px; }
+
+/* ============================================================
+   9. 經歷時間軸
+   ============================================================ */
+.tl-item {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: start;
+  padding: 24px 0;
+  border-top: 1px solid var(--rule);
+}
+
+.timeline .tl-item:last-child { border-bottom: 1px solid var(--rule); }
+
+.tl-date {
+  color: var(--secondary);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+}
+
+.tl-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.tl-org {
+  color: var(--ink);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: 0.012em;
+  line-height: 1.3;
+}
+
+.tl-role {
+  color: var(--text);
+  font-size: 17px;
+}
+
+.tl-note {
+  color: var(--tertiary);
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+
+.tl-desc {
+  margin-top: 6px;
+  color: var(--secondary);
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  line-height: 1.55;
+}
+
+.tl-logo {
+  align-self: center;
+  width: auto;
+  height: 52px;
+  filter: grayscale(1);
+  opacity: 0.55;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.tl-item:hover .tl-logo {
+  filter: none;
+  opacity: 1;
+}
+
+/* ============================================================
+   10. More：Daily papers + 地圖
+   ============================================================ */
+.more-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 20px;
+}
+
+.card {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: #fff;
+}
+
+.card-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 36px;
+}
+
+.card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 20px;
+}
+
+.card-title {
+  color: var(--ink);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.011em;
+  line-height: 1.24;
+}
+
+.card-desc {
   margin-top: 8px;
-  z-index: 0; /* 避免蓋住其他元素 */
+  color: var(--secondary);
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
 }
+
+.card-link .btn { margin-top: auto; }
+.card-link .card-desc { margin-bottom: 24px; }
+
+.card-map {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-map-head {
+  padding: 36px 36px 20px;
+}
+
+#travel-map {
+  z-index: 0;
+  flex: 1;
+  min-height: 280px;
+  background: var(--surface);
+}
+
+.leaflet-container { font-family: var(--font); }
+
 .map-tooltip img {
-  width: 100px;
-  max-width: 40vw;
-  border-radius: 4px;
   display: block;
-  margin-bottom: 4px;
+  width: 120px;
+  max-width: 40vw;
+  margin-bottom: 6px;
+  border-radius: 8px;
 }
+
 .map-tooltip .map-caption {
-  font-size: 0.8em;
-  color: #333;
+  color: var(--text);
+  font-size: 12px;
   text-align: center;
 }
 
 /* ============================================================
-   7. 側邊欄 Logo
+   11. 頁尾
    ============================================================ */
-.site-logo {
-  display: block;
-  width: 300px;
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 20px;
+.site-footer {
+  padding: 20px 0;
+  border-top: 1px solid var(--rule);
+  background: var(--surface);
+  color: var(--tertiary);
+  font-size: 12px;
+  letter-spacing: -0.01em;
 }
 
 /* ============================================================
-   8. 平板 / 手機（RWD）
+   12. RWD
    ============================================================ */
 
-/* ≤ 960px：改成上下單欄 */
-@media screen and (max-width: 960px) {
-  body .wrapper {
-    width: auto;
-    margin: 0;
-  }
-
-  /* 主題預設在這個寬度會替 header 留 320px 右邊空間，
-     並把 header 裡「所有」ul 設成 absolute 定位，
-     會讓連結清單與 News 疊在一起，這裡還原 */
-  body header {
-    padding-right: 0;
-  }
-
-  body header ul {
-    position: static;
-  }
-
-  .site-logo {
-    width: 180px;
-  }
-
-  #travel-map {
-    height: 220px;
-  }
+/* ≤ 1068px：字級稍微縮小 */
+@media (max-width: 1068px) {
+  .hero-title { font-size: 56px; }
+  .section-title { font-size: 40px; }
+  .feature-body { padding: 32px; }
 }
 
-/* ≤ 720px：清單項目改成上下排列 */
-@media screen and (max-width: 720px) {
-  .scholarship-item {
-    flex-direction: column;
-    align-items: stretch !important;   /* 覆蓋 index.md 的 inline style */
-    gap: 10px !important;
+/* ≤ 834px：平板 */
+@media (max-width: 834px) {
+  .band { padding: 72px 0; }
+  .bio { padding-bottom: 72px; }
+
+  .feature {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .s-year {
-    width: auto;
+  .feature-media {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
   }
 
-  /* 論文 / 專案縮圖（inline 寫死 width: 280px） */
-  .scholarship-item > div:first-child {
-    width: 100% !important;
+  .more-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  /* 學歷區的 NYCU logo（inline 寫死 width: 300px） */
-  .scholarship-item > img {
-    width: 100% !important;
-    max-width: 240px;
-    height: auto !important;
-    max-height: 80px;
-    margin-left: 0 !important;
+  .tl-item {
+    grid-template-columns: 130px minmax(0, 1fr);
   }
 
-  .slider-flex-container {
-    flex-direction: column !important;
-  }
-
-  .pub-card, .award-card {
-    padding: 16px;
-  }
-
-  /* 防止長網址或長單字撐破畫面 */
-  body section {
-    overflow-wrap: anywhere;
-  }
-
-  body section img,
-  body section video,
-  body section iframe {
-    max-width: 100%;
-  }
+  .tl-logo { display: none; }
 }
 
-/* else */
-.exp-org {
-  display: block;
-  color: #000;
+/* ≤ 734px：手機 */
+@media (max-width: 734px) {
+  :root { --gutter: 16px; }
+
+  :root { --nav-gap: 10px; }
+
+  .globalnav { padding: 0 10px; }
+  .globalnav-inner { padding: 0 8px 0 18px; }
+  .globalnav-links { display: none; }
+
+  .hero { padding: calc(var(--nav-h) + var(--nav-gap) + 48px) 0 36px; }
+  .hero-photo { width: 128px; height: 128px; margin-bottom: 22px; }
+  .hero-title { font-size: 40px; }
+  .hero-subtitle { font-size: 19px; }
+  .hero-actions { margin-top: 26px; }
+
+  /* 手機欄寬窄，字級略小、斷字放寬，減少左右對齊造成的字距空隙 */
+  .bio p { font-size: 16px; letter-spacing: 0; }
+
+  .bio p,
+  .tile-desc,
+  .tl-desc,
+  .card-desc { hyphenate-limit-chars: 6 3 2; }
+
+  .band { padding: 56px 0; }
+  .bio { padding-bottom: 56px; }
+
+  .section-title {
+    margin-bottom: 28px;
+    font-size: 32px;
+  }
+
+  .subsection-title {
+    margin-top: 44px;
+    font-size: 21px;
+  }
+
+  .news-item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+    padding: 16px 20px;
+  }
+
+  .feature-body,
+  .card-link,
+  .card-map-head { padding: 24px; }
+
+  .card-map-head { padding-bottom: 16px; }
+
+  .feature-title { font-size: 21px; }
+
+  .tiles { grid-template-columns: minmax(0, 1fr); }
+  .tile-body { padding: 22px 24px 26px; }
+
+  .tl-item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+    padding: 20px 0;
+  }
+
+  /* 日期與標籤排成一行 */
+  .tl-date .badge {
+    display: inline-block;
+    margin: 0 0 0 8px;
+    vertical-align: 1px;
+  }
+
+  #travel-map { min-height: 240px; }
+
+  main { overflow-wrap: anywhere; }
 }
 
-.exp-role {
-  display: block;
-  margin-top: 2px;
-  font-size: 0.9em;
-  font-style: italic;
-  font-weight: normal;
-  color: #000;
-}
-
-.exp-desc {
-  display: block;
-  margin-top: 6px;
-  font-size: 0.9em;
-  font-weight: normal;
-  color: #000;
-  line-height: 1.5;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
 }

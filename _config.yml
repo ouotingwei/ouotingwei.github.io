@@ -3,6 +3,7 @@ plugins:
 - jekyll-remote-theme
 - jekyll-seo-tag
 title: Ting-Wei Ou
+description: "Robotics M.S. student at NYCU, working on robot localization and mapping."
 logo: assets/pic/logo.jpg
 
 # Digital twin 聊天（api_url 留空時不會顯示聊天按鈕）

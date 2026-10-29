@@ -3,206 +3,95 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
     {% seo %}
+
+    <!-- 非 Apple 裝置沒有 SF Pro，用 Inter 當備援字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-    
-    <link rel="stylesheet" href="https://unpkg.com/beerslider/dist/BeerSlider.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <style>
-      .beer-slider {
-        border-radius: 8px;
-        overflow: hidden;
-        margin: 20px 0;
-      }
-      /* 讓目前所在頁面的選單文字變色，方便辨識 */
-      .nav-link.active {
-        color: #2e7d32; 
-        text-decoration: underline;
-      }
-    </style>
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1><a href="{{ "/" | relative_url }}">{{ site.title }}</a></h1>
-        {% if site.logo %}
-          <img src="{{ site.logo | relative_url }}" alt="Logo" class="site-logo" />
-        {% endif %}
-        <p>{{ site.description }}</p>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-        <nav>
-          <ul class="sidebar-links">
-            <li>
-              <a href="https://github.com/ouotingwei"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="nav-link">
-                <i class="fa-brands fa-github"></i>
-                <span>GitHub</span>
-              </a>
-            </li>
+    <!-- 頂部導覽列（毛玻璃） -->
+    <nav class="globalnav" aria-label="Main">
+      <div class="globalnav-inner">
+        <a class="globalnav-name" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+        <ul class="globalnav-links">
+          <li><a href="#research">Research</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#experience">Experience</a></li>
+        </ul>
+        <a class="btn btn-primary btn-sm" href="{{ '/assets/doc/CV.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer">CV</a>
+      </div>
+    </nav>
 
-            <li>
-              <a href="https://www.linkedin.com/in/tingweiouo/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="nav-link">
-                <i class="fa-brands fa-linkedin"></i>
-                <span>LinkedIn</span>
-              </a>
-            </li>
+    <main id="main">
+      {{ content }}
+    </main>
 
-            <li>
-              <a href="mailto:kklb1716@gmail.com"
-                class="nav-link">
-                <i class="fa-solid fa-envelope"></i>
-                <span>Email</span>
-              </a>
-            </li>
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. Built with Jekyll and hosted on GitHub Pages.</p>
+      </div>
+    </footer>
 
-            <li>
-              <a href="https://www.youtube.com/@weiweiwei-2001"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="nav-link">
-                <i class="fa-brands fa-youtube"></i>
-                <span>YouTube</span>
-              </a>
-            </li>
-
-            <li>
-              <a href="{{ '/assets/doc/CV.pdf' | relative_url }}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="nav-link">
-                <i class="fa-solid fa-file-pdf"></i>
-                <span>CV</span>
-              </a>
-            </li>
-          </ul>
-
-          <div class="sidebar-section">
-            <div class="sidebar-section-title">📰 News</div>
-            <ul class="news-list">
-              {% for item in site.data.news limit:5 %}
-                <li>
-                  <span class="news-date">{{ item.date }}</span>
-                  {% if item.link %}
-                    <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">{{ item.text }}</a>
-                  {% else %}
-                    {{ item.text }}
-                  {% endif %}
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-
-          <div class="sidebar-section">
-            <div class="sidebar-section-title">🛠️ Daily Papers</div>
-
-            <a href="https://ouotingwei.github.io/daily-arXiv-ai-enhanced/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="tool-link">
-
-              <i class="fa-solid fa-newspaper"></i>
-
-              <span class="tool-text">
-                <strong>Daily arXiv Digest</strong>
-                <small>Robotics, SLAM and computer vision papers</small>
-              </span>
-
-              <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
-            </a>
-          </div>
-
-          <div class="sidebar-section">
-            <div class="sidebar-section-title">🌍 Footprints</div>
-            <div id="travel-map"></div>
-          </div>
-
-        </nav>
-      </header>
-
-      <section>
-        {{ content }}
-      </section>
-
-      <footer>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by orderedlist</small></p>
-      </footer>
-    </div>
-
-    <script src="https://unpkg.com/beerslider/dist/BeerSlider.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
     <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        // 初始化 BeerSlider
-        const sliders = document.querySelectorAll('.beer-slider');
-        sliders.forEach(function(slider) {
-          new BeerSlider(slider, { start: '50' });
+      window.addEventListener('load', function () {
+        // ===== Travel Map =====
+        var mapEl = document.getElementById('travel-map');
+        if (!mapEl || typeof L === 'undefined') return;
+
+        var map = L.map('travel-map', {
+          zoomControl: false,
+          scrollWheelZoom: false,
+          attributionControl: true,
+          zoomSnap: 0.1
         });
 
-        // 自動高亮當前頁面的選單連結
-        const currentPath = window.location.pathname;
-        document.querySelectorAll('.nav-link').forEach(link => {
-          if (link.getAttribute('href').includes(currentPath) && currentPath !== '/') {
-            link.classList.add('active');
-          }
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+          attribution: '&copy; OpenStreetMap &copy; CARTO',
+          maxZoom: 10
+        }).addTo(map);
+
+        var places = [
+          {% for p in site.data.travel_map %}
+          {
+            name: {{ p.name | jsonify }},
+            city: {{ p.city | jsonify }},
+            lat: {{ p.lat }},
+            lng: {{ p.lng }},
+            photo: {{ p.photo | relative_url | jsonify }}
+          }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ];
+
+        places.forEach(function (p) {
+          L.circleMarker([p.lat, p.lng], {
+            radius: 5,
+            color: '#ffffff',
+            fillColor: '#0071e3',
+            fillOpacity: 1,
+            weight: 2
+          }).addTo(map).bindTooltip(
+            '<div class="map-tooltip">' +
+              '<img src="' + p.photo + '" alt="' + p.name + '">' +
+              '<div class="map-caption"><strong>' + p.name + '</strong><br>' + p.city + '</div>' +
+            '</div>',
+            { direction: 'top', opacity: 1 }
+          );
         });
 
-        // ===== Travel Map（從這裡開始是新加的）=====
-        const mapEl = document.getElementById('travel-map');
-        if (mapEl) {
-          const map = L.map('travel-map', {
-            zoomControl: false,
-            scrollWheelZoom: false,
-            attributionControl: true,
-            zoomSnap: 0.1
-          }).setView([30, 0], 0.7);
-
-          L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; OpenStreetMap &copy; CARTO',
-            maxZoom: 10
-          }).addTo(map);
-
-          const places = [
-            {% for p in site.data.travel_map %}
-            {
-              name: {{ p.name | jsonify }},
-              city: {{ p.city | jsonify }},
-              lat: {{ p.lat }},
-              lng: {{ p.lng }},
-              photo: {{ p.photo | relative_url | jsonify }}
-            }{% unless forloop.last %},{% endunless %}
-            {% endfor %}
-          ];
-
-          places.forEach(function(p) {
-            const marker = L.circleMarker([p.lat, p.lng], {
-              radius: 1.5,
-              color: '#2e7d32',
-              fillColor: '#2e7d32',
-              fillOpacity: 1.5,
-              weight: 1
-            }).addTo(map);
-
-            marker.bindTooltip(
-              '<div class="map-tooltip">' +
-                '<img src="' + p.photo + '" alt="' + p.name + '">' +
-                '<div class="map-caption"><strong>' + p.name + '</strong><br>' + p.city + '</div>' +
-              '</div>',
-              { direction: 'top', opacity: 1 }
-            );
-
-            marker.on('click', function() {
-              window.location.href = '{{ "/travel/" | relative_url }}';
-            });
-          });
+        if (places.length) {
+          map.fitBounds(places.map(function (p) { return [p.lat, p.lng]; }), { padding: [40, 40], maxZoom: 3 });
+        } else {
+          map.setView([30, 0], 1);
         }
       });
     </script>
