@@ -52,13 +52,26 @@
           zoomControl: false,
           scrollWheelZoom: false,
           attributionControl: true,
-          zoomSnap: 0.1
+          zoomSnap: 0.1,
+          maxBounds: [[-70, -200], [85, 200]],
+          maxBoundsViscosity: 1
         });
+        map.attributionControl.addAttribution('Map data &copy; Natural Earth');
 
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-          attribution: '&copy; OpenStreetMap &copy; CARTO',
-          maxZoom: 10
-        }).addTo(map);
+        // 底圖：不用第三方圖磚（CARTO 已改成需要 API key），
+        // 直接畫自己網站上的世界陸地輪廓（Natural Earth 1:110m，公有領域）
+        map.createPane('land');
+        map.getPane('land').style.zIndex = 350;
+        fetch({{ '/assets/data/land-110m.json' | relative_url | jsonify }})
+          .then(function (res) { return res.json(); })
+          .then(function (land) {
+            L.geoJSON(land, {
+              pane: 'land',
+              interactive: false,
+              style: { stroke: false, fillColor: '#e3e3e8', fillOpacity: 1 }
+            }).addTo(map);
+          })
+          .catch(function () { /* 陸地載入失敗時仍保留標記點 */ });
 
         var places = [
           {% for p in site.data.travel_map %}
