@@ -33,9 +33,9 @@ title: Home
 
 <div class="container bio" markdown="1">
 
-Hi! I'm Wade, a Master's student in Robotics at [National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/nycu/en/index), advised by [Prof. Kuu-Young Young](https://robotics.nycu.edu.tw/tw/teachers/show.php?num=14&page=2) in the Human and Machine Lab. I received my B.S. in Mechanical Engineering from NYCU in 2023.
+Hi! I’m Wade, a Master’s student in Robotics at [National Yang Ming Chiao Tung University (NYCU)](https://www.nycu.edu.tw/nycu/en/index), advised by [Prof. Kuu-Young Young](https://robotics.nycu.edu.tw/tw/teachers/show.php?num=14&page=2) in the Human and Machine Lab. I received my B.S. in Mechanical Engineering from NYCU in 2023. I have also worked as a Research Intern with the Self-Driving Car Team at the [ITRI](https://www.itri.org.tw/english/index.aspx) Mechanical and Mechatronics Systems Research Laboratories (MMSL), supervised by [Prof. Chieh-Chih Wang](https://sites.google.com/site/chiehchihbobwang/home?authuser=0) and Dr. Victor Lu.
 
-My research focuses on **efficient and robust robot perception**, particularly **localization and mapping**. I believe good research ideas often come from the corner cases that real-world deployment exposes, and that a system is only as useful as its ability to keep working when those cases occur. This belief led me to join the [ITRI](https://www.itri.org.tw/english/index.aspx) Autonomous Driving & Mapping Team as a Research Intern, where I integrated learning-based LiDAR registration into the team's HD mapping pipeline to improve registration robustness. Before that, my interest in building systems that work outside the lab grew through hands-on engineering, both as Team Leader of the [NYCU iTron Robotics Team](https://itrongoto.us/) and as an Automation System Development Engineer at [Hong Lang Technology](https://www.honglang-tw.com/?lang=en).
+My research focuses on efficient and robust robot perception, particularly localization and mapping. I believe good research ideas often come from the corner cases that real-world deployment exposes, and that a system is only as useful as its ability to keep working when those cases occur.
 
 I expect to graduate in February 2027 and am looking for PhD positions. Feel free to reach out!
 
