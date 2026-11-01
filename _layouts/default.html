@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light dark">
+
+    <!-- 在畫面出現前就套用深淺色與語言，避免閃一下白底或英文 -->
+    <script>
+      (function () {
+        var root = document.documentElement, theme = null, lang = null;
+        try { theme = localStorage.getItem('theme'); lang = localStorage.getItem('lang'); } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        root.setAttribute('data-theme', theme);
+        if (lang === 'zh') {
+          root.setAttribute('data-lang', 'zh');
+          root.setAttribute('lang', 'zh-Hant-TW');
+        }
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff');
+      })();
+    </script>
+
     {% seo %}
 
     <!-- 非 Apple 裝置沒有 SF Pro，用 Inter 當備援字體 -->
@@ -16,18 +36,34 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main"><span lang="en">Skip to content</span><span lang="zh-Hant">跳到主要內容</span></a>
 
     <!-- 頂部導覽列（毛玻璃） -->
     <nav class="globalnav" aria-label="Main">
       <div class="globalnav-inner">
         <a class="globalnav-name" href="{{ '/' | relative_url }}">{{ site.title }}</a>
         <ul class="globalnav-links">
-          <li><a href="#research">Research</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#experience">Experience</a></li>
+          <li><a href="#research"><span lang="en">Research</span><span lang="zh-Hant">研究</span></a></li>
+          <li><a href="#projects"><span lang="en">Projects</span><span lang="zh-Hant">專案</span></a></li>
+          <li><a href="#experience"><span lang="en">Experience</span><span lang="zh-Hant">經歷</span></a></li>
         </ul>
-        <a class="btn btn-primary btn-sm" href="{{ '/assets/doc/CV.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer">CV</a>
+        <div class="globalnav-actions">
+          <!-- 光達游標開關（實驗性，只在電腦版顯示） -->
+          <button class="nav-btn" type="button" id="lidar-toggle" aria-pressed="false" aria-label="LiDAR cursor (experimental)" title="LiDAR cursor / 光達游標（實驗性）">
+            <i class="fa-solid fa-satellite-dish" aria-hidden="true"></i>
+          </button>
+          <!-- 深色模式切換：淺色時顯示月亮、深色時顯示太陽 -->
+          <button class="nav-btn" type="button" id="theme-toggle" aria-label="Toggle dark mode" title="Dark mode / 深色模式">
+            <i class="fa-solid fa-moon show-when-light" aria-hidden="true"></i>
+            <i class="fa-solid fa-sun show-when-dark" aria-hidden="true"></i>
+          </button>
+          <!-- 語言切換：英文時顯示「中」、中文時顯示「EN」 -->
+          <button class="nav-btn nav-btn-lang" type="button" id="lang-toggle" aria-label="切換成中文 / Switch to English" title="中文 / English">
+            <span class="show-when-en">中</span>
+            <span class="show-when-zh">EN</span>
+          </button>
+          <a class="btn btn-primary btn-sm" href="{{ '/assets/doc/CV.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer">CV</a>
+        </div>
       </div>
     </nav>
 
@@ -37,9 +73,76 @@
 
     <footer class="site-footer">
       <div class="container">
-        <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. Built with Jekyll and hosted on GitHub Pages.</p>
+        <p>
+          <span lang="en">&copy; {{ site.time | date: '%Y' }} {{ site.title }}. Built with Jekyll and hosted on GitHub Pages.</span>
+          <span lang="zh-Hant">&copy; {{ site.time | date: '%Y' }} {{ site.title }}．使用 Jekyll 建置，架設於 GitHub Pages。</span>
+        </p>
       </div>
     </footer>
+
+    <!-- ===== 深色模式與語言切換 ===== -->
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var media = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+        function save(key, value) {
+          try { localStorage.setItem(key, value); } catch (e) {}
+        }
+        function saved(key) {
+          try { return localStorage.getItem(key); } catch (e) { return null; }
+        }
+
+        function applyTheme(theme) {
+          root.setAttribute('data-theme', theme);
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff');
+          document.dispatchEvent(new CustomEvent('themechange', { detail: theme }));
+        }
+
+        function applyLang(lang) {
+          if (lang === 'zh') {
+            root.setAttribute('data-lang', 'zh');
+            root.setAttribute('lang', 'zh-Hant-TW');
+          } else {
+            root.removeAttribute('data-lang');
+            root.setAttribute('lang', 'en-US');
+          }
+          document.dispatchEvent(new CustomEvent('langchange', { detail: lang }));
+        }
+
+        var themeBtn = document.getElementById('theme-toggle');
+        if (themeBtn) {
+          themeBtn.addEventListener('click', function () {
+            var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            save('theme', next);
+            applyTheme(next);
+          });
+        }
+
+        var langBtn = document.getElementById('lang-toggle');
+        if (langBtn) {
+          langBtn.addEventListener('click', function () {
+            var next = root.getAttribute('data-lang') === 'zh' ? 'en' : 'zh';
+            save('lang', next);
+            applyLang(next);
+          });
+        }
+
+        // 訪客沒有手動選過時，跟著系統的深淺色即時切換
+        if (media) {
+          var onSystemChange = function (e) {
+            var choice = saved('theme');
+            if (choice !== 'light' && choice !== 'dark') applyTheme(e.matches ? 'dark' : 'light');
+          };
+          if (media.addEventListener) media.addEventListener('change', onSystemChange);
+          else if (media.addListener) media.addListener(onSystemChange);
+        }
+      })();
+    </script>
+
+    <!-- 光達游標（實驗性）：參數在 assets/js/lidar-cursor.js 最上面 -->
+    <script src="{{ '/assets/js/lidar-cursor.js' | relative_url }}" defer></script>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
     <script>
@@ -47,6 +150,17 @@
         // ===== Travel Map =====
         var mapEl = document.getElementById('travel-map');
         if (!mapEl || typeof L === 'undefined') return;
+
+        // 地圖顏色讀取 style.scss 的變數，深淺色切換時跟著更新
+        function cssVar(name) {
+          return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+        }
+        function landStyle() {
+          return { stroke: false, fillColor: cssVar('--map-land'), fillOpacity: 1 };
+        }
+        function markerStyle() {
+          return { radius: 5, color: cssVar('--map-ring'), fillColor: cssVar('--accent'), fillOpacity: 1, weight: 2 };
+        }
 
         var map = L.map('travel-map', {
           zoomControl: false,
@@ -60,15 +174,16 @@
 
         // 底圖：不用第三方圖磚（CARTO 已改成需要 API key），
         // 直接畫自己網站上的世界陸地輪廓（Natural Earth 1:110m，公有領域）
+        var landLayer = null;
         map.createPane('land');
         map.getPane('land').style.zIndex = 350;
         fetch({{ '/assets/data/land-110m.json' | relative_url | jsonify }})
           .then(function (res) { return res.json(); })
           .then(function (land) {
-            L.geoJSON(land, {
+            landLayer = L.geoJSON(land, {
               pane: 'land',
               interactive: false,
-              style: { stroke: false, fillColor: '#e3e3e8', fillOpacity: 1 }
+              style: landStyle()
             }).addTo(map);
           })
           .catch(function () { /* 陸地載入失敗時仍保留標記點 */ });
@@ -85,20 +200,21 @@
           {% endfor %}
         ];
 
+        var markers = [];
         places.forEach(function (p) {
-          L.circleMarker([p.lat, p.lng], {
-            radius: 5,
-            color: '#ffffff',
-            fillColor: '#0071e3',
-            fillOpacity: 1,
-            weight: 2
-          }).addTo(map).bindTooltip(
+          var m = L.circleMarker([p.lat, p.lng], markerStyle()).addTo(map).bindTooltip(
             '<div class="map-tooltip">' +
               '<img src="' + p.photo + '" alt="' + p.name + '">' +
               '<div class="map-caption"><strong>' + p.name + '</strong><br>' + p.city + '</div>' +
             '</div>',
             { direction: 'top', opacity: 1 }
           );
+          markers.push(m);
+        });
+
+        document.addEventListener('themechange', function () {
+          if (landLayer) landLayer.setStyle(landStyle());
+          markers.forEach(function (m) { m.setStyle(markerStyle()); });
         });
 
         if (places.length) {

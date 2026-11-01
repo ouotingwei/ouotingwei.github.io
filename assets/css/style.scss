@@ -4,8 +4,16 @@
    設計規則（Design tokens）
    Apple 風格：近黑文字、灰階層次、淺灰區塊、單一藍色重點色
    不再載入 minimal 主題的 CSS，所有樣式都在這個檔案
+
+   深色模式：<html data-theme="dark"> 時改用下方 dark 那組變數。
+   新增樣式時請用變數（var(--bg)、var(--card)…），不要直接寫 #fff，
+   深色模式才會自動跟著變。
    ============================================================ */
 :root {
+  color-scheme: light;
+
+  --bg:          #ffffff;  /* 頁面底色 */
+  --card:        #ffffff;  /* 放在灰色區塊上的白卡片（News、專案、More） */
   --ink:         #1d1d1f;  /* 標題與主要文字 */
   --text:        #1d1d1f;
   --secondary:   #6e6e73;  /* 次要文字：作者、描述 */
@@ -17,6 +25,25 @@
   --accent-text: #0066cc;  /* 白底上的連結文字（對比較高） */
   --accent-hover:#0077ed;
   --accent-soft: #e8f2fd;
+
+  --pill-bg:         #ffffff;        /* 論文卡片上的小連結 */
+  --pill-bg-on-card: var(--surface); /* 專案卡片上的小連結 */
+
+  /* 導覽列毛玻璃 */
+  --nav-bg:       rgba(255, 255, 255, 0.55);
+  --nav-bg-solid: rgba(255, 255, 255, 0.96);
+  --nav-border:   rgba(255, 255, 255, 0.65);
+  --nav-inset:    rgba(255, 255, 255, 0.8);
+  --nav-shadow:   0 10px 30px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+  --nav-hover:    rgba(0, 0, 0, 0.06);
+
+  /* Hero 頂端光暈 */
+  --hero-glow-1: rgba(0, 113, 227, 0.10);
+  --hero-glow-2: rgba(94, 92, 230, 0.06);
+
+  /* 足跡地圖（由 default.html 的 script 讀取） */
+  --map-land: #e3e3e8;
+  --map-ring: #ffffff;
 
   /* 舊名稱保留給聊天視窗使用 */
   --accent-strong: var(--accent-text);
@@ -37,6 +64,73 @@
           Arial, sans-serif;
 }
 
+/* ---------- 深色模式配色 ---------- */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg:          #000000;
+  --card:        #1c1c1e;
+  --ink:         #f5f5f7;
+  --text:        #e8e8ed;
+  --secondary:   #a1a1a6;
+  --tertiary:    #8e8e93;
+  --rule:        #38383a;
+  --surface:     #121213;
+  --surface-2:   #2c2c2e;
+  --accent:      #0a84ff;
+  --accent-text: #2997ff;
+  --accent-hover:#409cff;
+  --accent-soft: rgba(41, 151, 255, 0.16);
+
+  --pill-bg:         #2c2c2e;
+  --pill-bg-on-card: #2c2c2e;
+
+  --nav-bg:       rgba(30, 30, 32, 0.6);
+  --nav-bg-solid: rgba(28, 28, 30, 0.96);
+  --nav-border:   rgba(255, 255, 255, 0.10);
+  --nav-inset:    rgba(255, 255, 255, 0.06);
+  --nav-shadow:   0 10px 30px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.4);
+  --nav-hover:    rgba(255, 255, 255, 0.10);
+
+  --hero-glow-1: rgba(10, 132, 255, 0.20);
+  --hero-glow-2: rgba(94, 92, 230, 0.14);
+
+  --map-land: #3a3a3c;
+  --map-ring: #1c1c1e;
+}
+
+/* ============================================================
+   0. 中英切換
+   每段文字寫兩份：<span lang="en">…</span><span lang="zh-Hant">…</span>
+   <html data-lang="zh"> 時顯示中文，否則顯示英文。
+   只寫一份（沒有 lang）的文字兩種語言都會顯示，例如論文標題。
+   ============================================================ */
+:root:not([data-lang="zh"]) [lang="zh-Hant"],
+:root[data-lang="zh"] [lang="en"] {
+  display: none !important;
+}
+
+/* 中文字距放寬一點；左右對齊改用逐字分配，避免中文行尾參差 */
+:root[data-lang="zh"] [lang="zh-Hant"],
+:root[data-lang="zh"] [lang="zh-Hant"] * {
+  letter-spacing: 0.02em;
+}
+
+:root[data-lang="zh"] .bio p,
+:root[data-lang="zh"] .tile-desc,
+:root[data-lang="zh"] .tl-desc,
+:root[data-lang="zh"] .card-desc {
+  text-justify: auto;
+}
+
+/* 切換按鈕上的圖示／文字：依目前狀態顯示其中一個 */
+:root[data-theme="dark"] .show-when-light,
+:root:not([data-theme="dark"]) .show-when-dark,
+:root[data-lang="zh"] .show-when-en,
+:root:not([data-lang="zh"]) .show-when-zh {
+  display: none !important;
+}
+
 /* ============================================================
    1. 基礎
    ============================================================ */
@@ -46,11 +140,12 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--nav-h) + var(--nav-gap) + 16px);
   -webkit-text-size-adjust: 100%;
+  background: var(--bg);
 }
 
 body {
   margin: 0;
-  background: #fff;
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font);
   font-size: 17px;
@@ -94,7 +189,7 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
   padding: 8px 14px;
   border-radius: var(--radius-pill);
   background: var(--ink);
-  color: #fff;
+  color: var(--bg);
   font-size: 14px;
 }
 
@@ -167,6 +262,10 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
   text-decoration: none;
 }
 
+/* 深色模式的 Hero 底色是黑的，圖示按鈕改用稍亮的灰才看得到 */
+:root[data-theme="dark"] .hero .icon-btn { background: var(--card); }
+:root[data-theme="dark"] .hero .icon-btn:hover { background: var(--surface-2); }
+
 /* 卡片裡的小連結 */
 .pills {
   display: flex;
@@ -182,7 +281,7 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
   min-height: 32px;
   padding: 0 14px;
   border-radius: var(--radius-pill);
-  background: #fff;
+  background: var(--pill-bg);
   color: var(--accent-text);
   font-size: 14px;
   font-weight: 500;
@@ -237,21 +336,18 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
   height: 100%;
   margin: 0 auto;
   padding: 0 10px 0 24px;
-  border: 1px solid rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--nav-border);
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.55);
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.08),
-    0 1px 3px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  background: var(--nav-bg);
+  box-shadow: var(--nav-shadow), inset 0 1px 0 var(--nav-inset);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   backdrop-filter: blur(24px) saturate(180%);
   pointer-events: auto;
 }
 
-/* 瀏覽器不支援毛玻璃時，改用不透明白底，確保文字看得清楚 */
+/* 瀏覽器不支援毛玻璃時，改用不透明底色，確保文字看得清楚 */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .globalnav-inner { background: rgba(255, 255, 255, 0.96); }
+  .globalnav-inner { background: var(--nav-bg-solid); }
 }
 
 .globalnav-name {
@@ -282,31 +378,97 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
   text-decoration: none;
 }
 
+/* 右側：深色模式、語言、CV */
+.globalnav-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.globalnav-actions .btn { margin-left: 6px; }
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1;
+  opacity: 0.8;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: var(--nav-hover);
+  opacity: 1;
+}
+
+.nav-btn-lang {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+/* 開啟中的開關（例如光達游標）用重點色 */
+.nav-btn[aria-pressed="true"] {
+  color: var(--accent);
+  opacity: 1;
+}
+
+/* 光達游標的畫布：蓋在最上層但不擋點擊 */
+#lidar-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+/* 觸控裝置沒有游標，不顯示開關 */
+@media (hover: none), (pointer: coarse) {
+  #lidar-toggle,
+  #lidar-canvas { display: none; }
+}
+
 /* ============================================================
-   4. Hero
+   4. Hero：照片在左；名字、簡介、按鈕、社群圖示在右
    ============================================================ */
 /* 頂端一層很淡的藍色光暈，讓導覽列的毛玻璃看得出來 */
 .hero {
   padding: calc(var(--nav-h) + var(--nav-gap) + 88px) 0 48px;
   background:
-    radial-gradient(60% 420px at 50% 0%, rgba(0, 113, 227, 0.10), rgba(0, 113, 227, 0) 70%),
-    radial-gradient(40% 320px at 85% 10%, rgba(94, 92, 230, 0.06), rgba(94, 92, 230, 0) 70%);
-  text-align: center;
+    radial-gradient(60% 420px at 50% 0%, var(--hero-glow-1), transparent 70%),
+    radial-gradient(40% 320px at 85% 10%, var(--hero-glow-2), transparent 70%);
 }
 
-.hero-inner {
+/* 寬度與下方自介欄（.bio）相同，左緣對齊 */
+.hero-layout {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  gap: 40px;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .hero-photo {
-  width: 168px;
-  height: 168px;
-  margin-bottom: 28px;
+  flex: 0 0 auto;
+  width: 176px;
+  height: 176px;
   border-radius: 50%;
   object-fit: cover;
   object-position: 50% 40%;
+}
+
+.hero-main {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .hero-title {
@@ -318,9 +480,8 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 }
 
 .hero-subtitle {
-  max-width: 620px;
-  text-wrap: balance;
-  margin-top: 14px;
+  text-wrap: pretty;
+  margin-top: 10px;
   color: var(--secondary);
   font-size: 24px;
   font-weight: 400;
@@ -328,29 +489,35 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
   line-height: 1.33;
 }
 
-.hero-actions {
+/* 按鈕與社群圖示同一行；空間不夠（手機）時圖示才會換到下一行 */
+.hero-cta {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  align-items: center;
+  gap: 14px 24px;
+  margin-top: 24px;
+}
+
+.hero-actions {
+  display: flex;
   gap: 14px;
-  margin-top: 32px;
 }
 
 .hero-social {
   display: flex;
   gap: 12px;
-  margin-top: 24px;
 }
 
 /* 進場動畫：只在 Hero，一次 */
 @media (prefers-reduced-motion: no-preference) {
-  .hero-inner > * {
+  .hero-photo,
+  .hero-main > * {
     animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
-  .hero-inner > :nth-child(2) { animation-delay: 0.06s; }
-  .hero-inner > :nth-child(3) { animation-delay: 0.12s; }
-  .hero-inner > :nth-child(4) { animation-delay: 0.18s; }
-  .hero-inner > :nth-child(5) { animation-delay: 0.24s; }
+  .hero-main > :nth-child(1) { animation-delay: 0.06s; }
+  .hero-main > :nth-child(2) { animation-delay: 0.12s; }
+  .hero-main > :nth-child(3) { animation-delay: 0.18s; }
+  .hero-main > :nth-child(4) { animation-delay: 0.24s; }
 }
 
 @keyframes rise {
@@ -430,7 +597,7 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 .news {
   overflow: hidden;
   border-radius: var(--radius-lg);
-  background: #fff;
+  background: var(--card);
 }
 
 .news-item {
@@ -465,6 +632,8 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
   border-radius: var(--radius-lg);
   background: var(--surface);
 }
+
+:root[data-theme="dark"] .feature { background: var(--card); }
 
 .feature + .feature { margin-top: 20px; }
 
@@ -526,7 +695,7 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
   flex-direction: column;
   overflow: hidden;
   border-radius: var(--radius-lg);
-  background: #fff;
+  background: var(--card);
 }
 
 .tile-media {
@@ -573,7 +742,7 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
   line-height: 1.55;
 }
 
-.tile .pill { background: var(--surface); }
+.tile .pill { background: var(--pill-bg-on-card); }
 .tile .pill:hover { background: var(--accent); }
 
 /* 讓連結貼齊卡片底部，兩欄高度不同時比較整齊 */
@@ -648,8 +817,12 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
   opacity: 1;
 }
 
+/* 深色模式：深色 logo 反轉成淺色；hover 時轉回原本的色相 */
+:root[data-theme="dark"] .tl-logo { filter: grayscale(1) invert(1); }
+:root[data-theme="dark"] .tl-item:hover .tl-logo { filter: invert(1) hue-rotate(180deg); }
+
 /* ============================================================
-   10. More：Daily papers + 地圖
+   10. More：Daily papers + 台灣時間 + 地圖
    ============================================================ */
 .more-grid {
   display: grid;
@@ -657,10 +830,18 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
   gap: 20px;
 }
 
+/* 左欄：兩張卡片上下排 */
+.more-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
 .card {
   overflow: hidden;
   border-radius: var(--radius-lg);
-  background: #fff;
+  background: var(--card);
 }
 
 .card-link {
@@ -702,6 +883,73 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 .card-link .btn { margin-top: auto; }
 .card-link .card-desc { margin-bottom: 24px; }
 
+/* 台灣時間時鐘 */
+.card-clock {
+  flex: 1 1 auto;
+  padding: 36px;
+}
+
+.clock-time {
+  margin-top: 10px;
+  color: var(--ink);
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.clock-s {
+  margin-left: 3px;
+  color: var(--tertiary);
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.clock-date {
+  margin: 6px 0 16px;
+  color: var(--secondary);
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+.clock-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.clock-dot {
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--tertiary);
+}
+
+.card-clock[data-state="active"] .clock-dot {
+  background: #30d158;
+  animation: clock-pulse 2s infinite;
+}
+
+.card-clock[data-state="break"] .clock-dot { background: #ff9f0a; }
+
+.clock-diff {
+  margin-top: 4px;
+  color: var(--tertiary);
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+
+@keyframes clock-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(48, 209, 88, 0.5); }
+  70%  { box-shadow: 0 0 0 8px rgba(48, 209, 88, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(48, 209, 88, 0); }
+}
+
 .card-map {
   display: flex;
   flex-direction: column;
@@ -719,6 +967,29 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 }
 
 .leaflet-container { font-family: var(--font); }
+
+/* 地圖提示框與版權列跟著深淺色 */
+.leaflet-container .leaflet-tooltip {
+  border-color: var(--card);
+  background: var(--card);
+  color: var(--text);
+}
+
+.leaflet-container .leaflet-tooltip-top::before { border-top-color: var(--card); }
+.leaflet-container .leaflet-tooltip-bottom::before { border-bottom-color: var(--card); }
+
+:root[data-theme="dark"] .leaflet-container .leaflet-tooltip {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+:root[data-theme="dark"] .leaflet-container .leaflet-control-attribution {
+  background: rgba(28, 28, 30, 0.8);
+  color: var(--tertiary);
+}
+
+:root[data-theme="dark"] .leaflet-container .leaflet-control-attribution a {
+  color: var(--accent-text);
+}
 
 .map-tooltip img {
   display: block;
@@ -793,10 +1064,17 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
   .globalnav-links { display: none; }
 
   .hero { padding: calc(var(--nav-h) + var(--nav-gap) + 48px) 0 36px; }
-  .hero-photo { width: 128px; height: 128px; margin-bottom: 22px; }
+
+  /* 手機：照片移到上方、縮小，整塊仍靠左 */
+  .hero-layout {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .hero-photo { width: 112px; height: 112px; }
   .hero-title { font-size: 40px; }
   .hero-subtitle { font-size: 19px; }
-  .hero-actions { margin-top: 26px; }
+  .hero-cta { margin-top: 22px; }
 
   /* 手機欄寬窄，字級略小、斷字放寬，減少左右對齊造成的字距空隙 */
   .bio p { font-size: 16px; letter-spacing: 0; }
@@ -827,6 +1105,7 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 
   .feature-body,
   .card-link,
+  .card-clock,
   .card-map-head { padding: 24px; }
 
   .card-map-head { padding-bottom: 16px; }
