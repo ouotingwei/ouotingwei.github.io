@@ -369,7 +369,7 @@ title: Home
   </div>
 </section>
 
-<!-- ===== More：Daily papers + 台灣時間 + 足跡地圖 ===== -->
+<!-- ===== More：Daily papers + 台灣時間 + 足跡地圖 + 光達里程計 ===== -->
 <section class="band band-gray" id="more">
   <div class="container">
     <h2 class="section-title"><span lang="en">More</span><span lang="zh-Hant">更多</span></h2>
@@ -405,6 +405,43 @@ title: Home
           </p>
         </div>
         <div id="travel-map" role="img" aria-label="World map of places I have visited"></div>
+      </div>
+    </div>
+
+    <!-- 光達里程計小展示：左邊是估測軌跡，右邊是模擬街景（程式在 assets/js/lidar-odometry.js） -->
+    <div class="card card-loc" id="loc-demo">
+      <div class="loc-head">
+        <span class="card-icon"><i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i></span>
+        <div>
+          <h3 class="card-title"><span lang="en">What is localization?</span><span lang="zh-Hant">什麼是定位？</span></h3>
+          <p class="card-desc">
+            <span lang="en">Drive the car through the street on the right. On the left, its path is rebuilt from the LiDAR scans alone: each scan is matched against the previous one, and the small motions add up to a trajectory.</span>
+            <span lang="zh-Hant">在右邊的街景裡開車。左邊只用光達掃描重建出車子走過的路徑：每一幀掃描和前一幀比對，算出這段時間移動了多少，再一段一段累加成軌跡。</span>
+          </p>
+        </div>
+      </div>
+      <div class="loc-panels">
+        <div class="loc-panel loc-panel-est">
+          <canvas class="loc-canvas-est" role="img" aria-label="Trajectory estimated from LiDAR scans"></canvas>
+          <span class="loc-label"><span lang="en">Estimated from LiDAR</span><span lang="zh-Hant">光達估測結果</span></span>
+          <button class="loc-reset" type="button" aria-label="Clear the trajectory" title="Clear the trajectory"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i></button>
+          <div class="loc-foot">
+            <span class="loc-key loc-key-est"><span lang="en">Estimated path</span><span lang="zh-Hant">估測軌跡</span></span>
+            <span class="loc-key loc-key-true"><span lang="en">True path</span><span lang="zh-Hant">真實軌跡</span></span>
+            <span class="loc-stats">
+              <span lang="en">Travelled</span><span lang="zh-Hant">已行駛</span> <strong class="loc-stat-dist">0.0 m</strong>
+              · <span lang="en">Drift</span><span lang="zh-Hant">漂移</span> <strong class="loc-stat-drift">0.00 m</strong>
+            </span>
+          </div>
+        </div>
+        <div class="loc-panel loc-panel-sim loc-stage">
+          <canvas class="loc-canvas-sim" role="img" aria-label="Simulated street seen from above, with a car carrying a LiDAR"></canvas>
+          <span class="loc-label"><span lang="en">Simulated street</span><span lang="zh-Hant">模擬街景</span></span>
+          <div class="loc-foot">
+            <span class="loc-hint-mouse"><span lang="en">Move your cursor over the street. It becomes the car.</span><span lang="zh-Hant">把滑鼠移到街景上，游標會變成這台車。</span></span>
+            <span class="loc-hint-touch"><span lang="en">The car drives itself here. On a computer, you steer it with the mouse.</span><span lang="zh-Hant">這裡車子會自己開；用電腦瀏覽時可以用滑鼠控制。</span></span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

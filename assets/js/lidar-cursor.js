@@ -2,6 +2,8 @@
    光達游標（實驗性功能）
    - 游標是一顆旋轉的光達：每條光束在空地上落成一圈一圈的環，
      打到卡片、照片、按鈕時，點會停在它的邊框上（像打到障礙物）
+   - 邊框形狀讀取每個元素實際的 border-radius，所以圓角卡片、
+     膠囊按鈕、圓形照片都會貼合真正的輪廓
    - 只在有滑鼠的電腦上啟用；滑鼠靜止一陣子就停止掃描，不耗效能
    - 導覽列的雷達按鈕可以開關，訪客的選擇會記住
    ============================================================ */
@@ -23,10 +25,11 @@
   var FREE_SIZE = 1.4;                         // 點的大小（px）
   var HIT_SIZE = 2;
 
-  // 會被當成「障礙物」的元素；圓形的另外列出，邊緣才會貼合圓框
+  // 會被當成「障礙物」的元素；圓角會自動從 CSS 的 border-radius 讀取
   var OBSTACLES = '.card, .feature, .feature-media, .tile, .tile-media, .news, ' +
-                  '.btn, .icon-btn, .pill, .hero-photo, .globalnav-inner, .tl-logo';
-  var CIRCLES = '.hero-photo, .icon-btn';
+                  '.btn, .icon-btn, .pill, .hero-photo, .globalnav-inner, .tl-logo, .loc-panel';
+  // 滑鼠在這些區域裡時，游標光達暫停（例如定位模擬有自己的光達）
+  var PAUSE_OVER = '.loc-stage';
 
   /* ---------- 狀態 ---------- */
   var root = document.documentElement;
@@ -36,7 +39,7 @@
   var enabled = false, running = false;
   var mouseX = -1, mouseY = -1, lastMove = 0, lastFrame = 0;
   var sweep = 0;                               // 目前掃到第幾條光束（小數）
-  var obstacles = [];                          // 頁面座標的障礙物 {l,t,r,b} 或 {cx,cy,rad}
+  var obstacles = [];                          // 頁面座標的障礙物 {l,t,r,b, tl,tr,br,bl（四個角的圓角半徑）}
   var rectsDirty = true;
   var colorHit = '#0071e3', colorFree = '#6e6e73';
 
@@ -87,20 +90,76 @@
   }
 
   /* ---------- 障礙物 ---------- */
+  // 讀取一個角的圓角半徑（px）；'50%' 這類百分比依元素寬度換算
+  function radiusPx(value, width) {
+    var first = String(value).split(' ')[0];
+    var n = parseFloat(first);
+    if (!n) return 0;
+    return first.indexOf('%') >= 0 ? (n / 100) * width : n;
+  }
+
+  // 元素四個角的圓角半徑 [左上, 右上, 右下, 左下]，不會超過短邊的一半
+  function cornerRadii(el, w, h) {
+    var cs = getComputedStyle(el);
+    var cap = Math.min(w, h) / 2;
+    return {
+      radii: [
+        Math.min(radiusPx(cs.borderTopLeftRadius, w), cap),
+        Math.min(radiusPx(cs.borderTopRightRadius, w), cap),
+        Math.min(radiusPx(cs.borderBottomRightRadius, w), cap),
+        Math.min(radiusPx(cs.borderBottomLeftRadius, w), cap)
+      ],
+      clips: cs.overflow !== 'visible'
+    };
+  }
+
   function collectObstacles() {
     var sx = window.scrollX, sy = window.scrollY;
     var vh = window.innerHeight, vw = window.innerWidth;
     var list = [];
+    var seen = new Map();                                           // 元素 → {rect, radii, clips}
+
+    function info(el) {
+      var hit = seen.get(el);
+      if (hit) return hit;
+      var r = el.getBoundingClientRect();
+      var c = cornerRadii(el, r.width, r.height);
+      hit = { rect: r, radii: c.radii, clips: c.clips };
+      seen.set(el, hit);
+      return hit;
+    }
+
     document.querySelectorAll(OBSTACLES).forEach(function (el) {
       var r = el.getBoundingClientRect();
       if (r.width < 4 || r.height < 4) return;                      // 被隱藏的元素
       if (r.bottom < -MAX_RANGE || r.top > vh + MAX_RANGE) return;  // 離畫面太遠
       if (r.right < -MAX_RANGE || r.left > vw + MAX_RANGE) return;
-      if (el.matches(CIRCLES)) {
-        list.push({ circle: true, cx: r.left + r.width / 2 + sx, cy: r.top + r.height / 2 + sy, rad: Math.min(r.width, r.height) / 2 });
-      } else {
-        list.push({ circle: false, l: r.left + sx, t: r.top + sy, r: r.right + sx, b: r.bottom + sy });
+
+      var rad = info(el).radii.slice();
+
+      // 卡片裡的圖片區塊本身是直角，但會被外層卡片的圓角裁掉：
+      // 貼在外層角落的那幾個角，改用外層的圓角
+      var parent = el.parentElement && el.parentElement.closest(OBSTACLES);
+      if (parent) {
+        var p = info(parent);
+        if (p.clips) {
+          var pr = p.rect, E = 1.5;
+          var atL = Math.abs(r.left - pr.left) < E, atR = Math.abs(r.right - pr.right) < E;
+          var atT = Math.abs(r.top - pr.top) < E, atB = Math.abs(r.bottom - pr.bottom) < E;
+          if (atT && atL) rad[0] = Math.max(rad[0], p.radii[0]);
+          if (atT && atR) rad[1] = Math.max(rad[1], p.radii[1]);
+          if (atB && atR) rad[2] = Math.max(rad[2], p.radii[2]);
+          if (atB && atL) rad[3] = Math.max(rad[3], p.radii[3]);
+          var cap = Math.min(r.width, r.height) / 2;
+          for (var k = 0; k < 4; k++) rad[k] = Math.min(rad[k], cap);
+        }
       }
+
+      list.push({
+        l: r.left + sx, t: r.top + sy, r: r.right + sx, b: r.bottom + sy,
+        tl: rad[0], tr: rad[1], br: rad[2], bl: rad[3],
+        round: rad[0] + rad[1] + rad[2] + rad[3] > 0.5
+      });
     });
     obstacles = list;
     rectsDirty = false;
@@ -121,24 +180,51 @@
     return tmin > 0 ? tmin : tmax;
   }
 
-  function hitCircle(ox, oy, dx, dy, o) {
-    var fx = ox - o.cx, fy = oy - o.cy;
+  // 光束與一個圓角（四分之一圓弧）的交點距離；qx、qy 指出圓弧在圓心的哪一側
+  function hitCorner(ox, oy, dx, dy, cx, cy, rad, qx, qy, best) {
+    var fx = ox - cx, fy = oy - cy;
     var b = fx * dx + fy * dy;
-    var c = fx * fx + fy * fy - o.rad * o.rad;
-    var disc = b * b - c;
-    if (disc < 0) return Infinity;
+    var disc = b * b - (fx * fx + fy * fy - rad * rad);
+    if (disc < 0) return best;
     var s = Math.sqrt(disc);
-    var t1 = -b - s, t2 = -b + s;
-    return t1 > 0 ? t1 : (t2 > 0 ? t2 : Infinity);
+    for (var i = 0; i < 2; i++) {
+      var t = i === 0 ? -b - s : -b + s;
+      if (t <= 1e-6 || t >= best) continue;
+      if ((fx + dx * t) * qx >= -0.01 && (fy + dy * t) * qy >= -0.01) best = t;
+    }
+    return best;
+  }
+
+  // 光束與圓角矩形邊框的最近交點距離：四條直邊（扣掉圓角）加四個圓弧
+  function hitRoundRect(ox, oy, dx, dy, o) {
+    if (!o.round) return hitRect(ox, oy, dx, dy, o);
+    if (hitRect(ox, oy, dx, dy, o) === Infinity) return Infinity;   // 連外框都沒碰到
+
+    var best = Infinity, t, p, E = 0.01;
+    if (dy !== 0) {
+      t = (o.t - oy) / dy;                                          // 上邊
+      if (t > 1e-6 && t < best) { p = ox + dx * t; if (p >= o.l + o.tl - E && p <= o.r - o.tr + E) best = t; }
+      t = (o.b - oy) / dy;                                          // 下邊
+      if (t > 1e-6 && t < best) { p = ox + dx * t; if (p >= o.l + o.bl - E && p <= o.r - o.br + E) best = t; }
+    }
+    if (dx !== 0) {
+      t = (o.l - ox) / dx;                                          // 左邊
+      if (t > 1e-6 && t < best) { p = oy + dy * t; if (p >= o.t + o.tl - E && p <= o.b - o.bl + E) best = t; }
+      t = (o.r - ox) / dx;                                          // 右邊
+      if (t > 1e-6 && t < best) { p = oy + dy * t; if (p >= o.t + o.tr - E && p <= o.b - o.br + E) best = t; }
+    }
+    if (o.tl > 0) best = hitCorner(ox, oy, dx, dy, o.l + o.tl, o.t + o.tl, o.tl, -1, -1, best);
+    if (o.tr > 0) best = hitCorner(ox, oy, dx, dy, o.r - o.tr, o.t + o.tr, o.tr, 1, -1, best);
+    if (o.br > 0) best = hitCorner(ox, oy, dx, dy, o.r - o.br, o.b - o.br, o.br, 1, 1, best);
+    if (o.bl > 0) best = hitCorner(ox, oy, dx, dy, o.l + o.bl, o.b - o.bl, o.bl, -1, 1, best);
+    return best;
   }
 
   function nearby(ox, oy) {
     var out = [];
     for (var i = 0; i < obstacles.length; i++) {
       var o = obstacles[i];
-      if (o.circle) {
-        if (Math.abs(o.cx - ox) <= MAX_RANGE + o.rad && Math.abs(o.cy - oy) <= MAX_RANGE + o.rad) out.push(o);
-      } else if (o.r >= ox - MAX_RANGE && o.l <= ox + MAX_RANGE && o.b >= oy - MAX_RANGE && o.t <= oy + MAX_RANGE) {
+      if (o.r >= ox - MAX_RANGE && o.l <= ox + MAX_RANGE && o.b >= oy - MAX_RANGE && o.t <= oy + MAX_RANGE) {
         out.push(o);
       }
     }
@@ -148,8 +234,7 @@
   function cast(beam, ox, oy, near, now) {
     var dx = COS[beam], dy = SIN[beam], best = Infinity;
     for (var i = 0; i < near.length; i++) {
-      var o = near[i];
-      var t = o.circle ? hitCircle(ox, oy, dx, dy, o) : hitRect(ox, oy, dx, dy, o);
+      var t = hitRoundRect(ox, oy, dx, dy, near[i]);
       if (t < best) best = t;
     }
     beamX[beam] = ox;
@@ -243,6 +328,11 @@
 
   /* ---------- 事件 ---------- */
   window.addEventListener('mousemove', function (e) {
+    if (e.target && e.target.closest && e.target.closest(PAUSE_OVER)) {
+      mouseX = -1;                             // 交給該區塊自己的光達，游標光達淡出
+      mouseY = -1;
+      return;
+    }
     mouseX = e.clientX;
     mouseY = e.clientY;
     lastMove = performance.now();
