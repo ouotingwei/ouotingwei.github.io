@@ -148,6 +148,20 @@ title: Home
     <h2 class="section-title"><span lang="en">Side projects</span><span lang="zh-Hant">其他專案</span></h2>
 
     <div class="tiles">
+      <!-- map_lock -->
+      <article class="tile">
+        <div class="tile-media">
+          <video src="assets/video/tai_68_loc.mp4" autoplay muted loop playsinline preload="metadata" aria-label="GoPro localization in a LiDAR HD map demo"></video>
+        </div>
+        <div class="tile-body">
+          <h3 class="tile-title">Camera Localization in LiDAR HD Maps</h3>
+          <p class="tile-desc">
+            <span lang="en">This project localizes GoPro video frame by frame in a LiDAR HD map. It matches each frame to a rendered map intensity image with MatchAnything, then refines the poses with a sliding-window optimization that fuses PnP with GPS and gyro motion priors. By leveraging road markings, it achieves stable localization even in feature-sparse scenes such as the elevated Provincial Highway 68 (Taiwan).</span>
+            <span lang="zh-Hant">本專案將 GoPro 影片逐幀定位到 LiDAR 高精地圖中：以 MatchAnything 匹配影像與地圖渲染強度圖，再結合 PnP 與 GPS、陀螺儀運動先驗進行滑動視窗最佳化。透過地面標線，即使在台 68 高架道路這類特徵稀疏的場景中，也能穩定定位。</span>
+          </p>
+        </div>
+      </article>
+
       <!-- ORB+FeatureBooster -->
       <article class="tile">
         <div class="tile-media">
